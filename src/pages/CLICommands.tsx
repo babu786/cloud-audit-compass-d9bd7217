@@ -222,14 +222,20 @@ function CommandCard({ command, onCopy, isCopied }: CommandCardProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity"
+            className={`absolute top-2 right-2 h-7 w-7 transition-all duration-300 ${
+              isCopied 
+                ? 'bg-green-500/20 scale-110' 
+                : 'opacity-0 group-hover:opacity-100'
+            }`}
             onClick={() => onCopy(command.command, command.id)}
           >
-            {isCopied ? (
-              <Check className="h-4 w-4 text-green-500" />
-            ) : (
-              <Copy className="h-4 w-4" />
-            )}
+            <span className={`transition-all duration-300 ${isCopied ? 'scale-100' : 'scale-100'}`}>
+              {isCopied ? (
+                <Check className="h-4 w-4 text-green-500 animate-scale-in" />
+              ) : (
+                <Copy className="h-4 w-4" />
+              )}
+            </span>
           </Button>
         </div>
         
