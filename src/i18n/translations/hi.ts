@@ -19,6 +19,7 @@ export const hi: Translations = {
     confirm: 'पुष्टि करें',
     yes: 'हाँ',
     no: 'नहीं',
+    clear: 'साफ़ करें',
   },
 
   // Navigation
@@ -26,6 +27,7 @@ export const hi: Translations = {
     auditControls: 'ऑडिट नियंत्रण',
     guidedMode: 'मार्गदर्शित मोड',
     awareness: 'जागरूकता',
+    faq: 'सामान्य प्रश्न',
     cloudSecurity: 'क्लाउड सुरक्षा',
     auditGuidancePortal: 'ऑडिट मार्गदर्शन पोर्टल',
   },
@@ -154,5 +156,24 @@ export const hi: Translations = {
     english: 'English',
     hindi: 'हिंदी',
     selectLanguage: 'भाषा चुनें',
+  },
+
+  // FAQ
+  faq: {
+    title: 'अक्सर पूछे जाने वाले प्रश्न',
+    subtitle: 'सामान्य प्रश्न, गलत कॉन्फ़िगरेशन मार्गदर्शन, क्लाउड विशेषताएं और ऑडिटर चर्चा बिंदु।',
+    searchPlaceholder: 'FAQ खोजें...',
+    categories: {
+      all: 'सभी प्रश्न',
+      common: 'सामान्य प्रश्न',
+      misconfig: 'अगर मिले तो...?',
+      quirks: 'क्लाउड विशेषताएं',
+      interview: 'साक्षात्कार बिंदु',
+    },
+    noResults: 'कोई मेल खाने वाले प्रश्न नहीं मिले।',
+    relatedControls: 'संबंधित नियंत्रण',
+    expandAll: 'सभी खोलें',
+    collapseAll: 'सभी बंद करें',
+    questionsFound: 'प्रश्न मिले',
   },
 };
