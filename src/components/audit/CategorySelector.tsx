@@ -33,7 +33,7 @@ export function CategorySelector({ selected, onSelect }: CategorySelectorProps) 
       <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
         Service Categories
       </h3>
-      <div className="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-6 gap-1.5 sm:gap-2">
+      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-1.5 sm:gap-2">
         {serviceCategories.map((category) => {
           const isSelected = selected.includes(category.id);
           const Icon = iconMap[category.icon as keyof typeof iconMap];
@@ -60,7 +60,7 @@ export function CategorySelector({ selected, onSelect }: CategorySelectorProps) 
                 "text-xs font-medium truncate transition-colors",
                 isSelected ? "text-primary" : "text-foreground"
               )}>
-                {category.name.split(' ')[0]}
+                {category.name}
               </span>
             </button>
           );
