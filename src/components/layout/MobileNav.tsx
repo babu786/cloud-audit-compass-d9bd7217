@@ -21,7 +21,7 @@ export function MobileNav() {
   ];
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         onClick={() => setIsOpen(true)}
         className="p-2 rounded-lg hover:bg-secondary/50 transition-colors"
@@ -42,7 +42,7 @@ export function MobileNav() {
       {/* Drawer */}
       <div
         className={cn(
-          "fixed top-0 left-0 h-full w-[280px] bg-card border-r border-border z-50 transition-transform duration-300 ease-out",
+          "fixed top-0 left-0 h-full w-[280px] bg-card border-r border-border z-[60] transition-transform duration-300 ease-out",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
@@ -84,7 +84,7 @@ export function MobileNav() {
                   )}
                   style={{
                     animation: isOpen ? `slide-in-left 0.3s ease-out ${index * 50}ms forwards` : 'none',
-                    opacity: isOpen ? 1 : 0,
+                    opacity: isOpen ? undefined : 0,
                   }}
                 >
                   <Icon className={cn("h-5 w-5", isActive && "text-primary")} />

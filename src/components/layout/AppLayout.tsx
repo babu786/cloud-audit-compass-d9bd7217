@@ -41,7 +41,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2">
             <nav className="flex items-center gap-1">
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href;
