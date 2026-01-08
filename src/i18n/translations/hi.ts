@@ -28,6 +28,7 @@ export const hi: Translations = {
     guidedMode: 'मार्गदर्शित मोड',
     awareness: 'जागरूकता',
     faq: 'सामान्य प्रश्न',
+    cliCommands: 'CLI कमांड',
     cloudSecurity: 'क्लाउड सुरक्षा',
     auditGuidancePortal: 'ऑडिट मार्गदर्शन पोर्टल',
   },
@@ -175,5 +176,20 @@ export const hi: Translations = {
     expandAll: 'सभी खोलें',
     collapseAll: 'सभी बंद करें',
     questionsFound: 'प्रश्न मिले',
+  },
+
+  // CLI Commands
+  cli: {
+    title: 'CLI कमांड लाइब्रेरी',
+    subtitle: 'क्लाउड सुरक्षा ऑडिटिंग के लिए तैयार CLI कमांड। कॉपी करने के लिए क्लिक करें।',
+    searchPlaceholder: 'कमांड खोजें...',
+    allProviders: 'सभी प्रदाता',
+    allCategories: 'सभी श्रेणियां',
+    provider: 'प्रदाता',
+    category: 'श्रेणी',
+    commandsFound: 'कमांड मिले',
+    noResults: 'कोई मेल खाने वाले कमांड नहीं मिले।',
+    copied: 'कमांड क्लिपबोर्ड में कॉपी हो गया!',
+    copyFailed: 'कमांड कॉपी करने में विफल',
   },
 };
