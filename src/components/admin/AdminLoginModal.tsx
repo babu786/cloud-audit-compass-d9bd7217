@@ -37,17 +37,20 @@ export const AdminLoginModal = ({ open, onClose, onSuccess }: AdminLoginModalPro
     setIsLoading(true);
 
     try {
-      const inputEmailHash = await hashString(email.toLowerCase().trim());
+      const normalizedEmail = email.toLowerCase().trim();
+      const inputEmailHash = await hashString(normalizedEmail);
       const inputPassHash = await hashString(password);
       
-      // Compare input hashes against stored hashes
-      // Valid: admin@isagcloud.com / Google-143@t
-      const validEmailHash = 'e4d909c290d0fb1ca068ffaddf22cbd0d3e6e8d0b8f8a7c6d5e4f3a2b1c0d9e8';
-      const validPassHash = 'f5e0a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1';
+      // Expected credentials: admin@isagcloud.com / Google-143@t
+      const expectedEmail = ['a','d','m','i','n','@','i','s','a','g','c','l','o','u','d','.','c','o','m'].join('');
+      const expectedPass = ['G','o','o','g','l','e','-','1','4','3','@','t'].join('');
+      
+      const checkEmail = await hashString(expectedEmail);
+      const checkPass = await hashString(expectedPass);
 
-      // Dynamic validation using obfuscated check
-      const checkEmail = await hashString(['admin', '@', 'isagcloud', '.', 'com'].join(''));
-      const checkPass = await hashString(['Google', '-', '143', '@', 't'].join(''));
+      console.log('Input email:', normalizedEmail, 'Expected:', expectedEmail);
+      console.log('Email match:', inputEmailHash === checkEmail);
+      console.log('Pass match:', inputPassHash === checkPass);
 
       if (inputEmailHash === checkEmail && inputPassHash === checkPass) {
         sessionStorage.setItem('isAdmin', btoa(Date.now().toString()));
@@ -57,7 +60,8 @@ export const AdminLoginModal = ({ open, onClose, onSuccess }: AdminLoginModalPro
       } else {
         setError('Invalid credentials');
       }
-    } catch {
+    } catch (err) {
+      console.error('Auth error:', err);
       setError('Authentication error');
     } finally {
       setIsLoading(false);
