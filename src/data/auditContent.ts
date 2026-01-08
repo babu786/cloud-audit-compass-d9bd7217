@@ -2624,6 +2624,7 @@ export const awarenessArticles: AwarenessArticle[] = [
     title: 'The Rise of Cloud-Native Ransomware',
     category: 'Weekly Awareness',
     summary: 'Understanding how attackers are adapting ransomware tactics specifically for cloud environments.',
+    imageUrl: '/src/assets/awareness/ransomware-cloud.jpg',
     content: `Cloud-native ransomware represents a significant evolution in cyber threats. Unlike traditional ransomware that encrypts local files, these attacks target cloud storage, databases, and backups directly.
 
 **Key Attack Vectors:**
@@ -2644,6 +2645,7 @@ export const awarenessArticles: AwarenessArticle[] = [
     title: 'Top 5 S3 Bucket Misconfigurations',
     category: 'Misconfigurations',
     summary: 'The most common S3 security mistakes and how to identify them during audits.',
+    imageUrl: '/src/assets/awareness/s3-misconfig.jpg',
     content: `S3 buckets remain one of the most misconfigured cloud resources. Here are the top issues to check:
 
 **1. Public Access Enabled**
@@ -2672,6 +2674,7 @@ export const awarenessArticles: AwarenessArticle[] = [
     title: 'Zero Trust Architecture in Cloud Environments',
     category: 'Best Practices',
     summary: 'Implementing zero trust principles across AWS, Azure, and GCP workloads.',
+    imageUrl: '/src/assets/awareness/zero-trust.jpg',
     content: `Zero Trust is not a product but an architecture approach. In cloud environments, this means:
 
 **Identity-Centric Security**
@@ -2695,6 +2698,7 @@ export const awarenessArticles: AwarenessArticle[] = [
     title: 'Audit Efficiency: CLI Commands Every Auditor Should Know',
     category: 'Audit Tips',
     summary: 'Essential command-line techniques to speed up your cloud security assessments.',
+    imageUrl: '/src/assets/awareness/cli-audit.jpg',
     content: `Master these CLI patterns to accelerate your audits:
 
 **AWS Quick Checks:**
@@ -2721,6 +2725,7 @@ aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values='0.0.0
     title: 'Understanding CIS Benchmark Levels',
     category: 'Weekly Awareness',
     summary: 'A guide to Level 1 and Level 2 CIS Benchmark profiles and when to apply each.',
+    imageUrl: '/src/assets/awareness/cis-benchmark.jpg',
     content: `CIS Benchmarks define two profile levels that help organizations prioritize security controls:
 
 **Level 1 Profile:**
@@ -2747,6 +2752,7 @@ aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values='0.0.0
     title: 'Identity Misconfigurations Across Cloud Providers',
     category: 'Misconfigurations',
     summary: 'Common IAM mistakes found in AWS, Azure, and GCP environments.',
+    imageUrl: '/src/assets/awareness/iam-misconfig.jpg',
     content: `Identity and Access Management is consistently the most misconfigured area across all cloud providers:
 
 **AWS Common Issues:**
@@ -2779,6 +2785,7 @@ aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values='0.0.0
     title: 'ISO 27001:2022 Cloud Security Updates',
     category: 'Weekly Awareness',
     summary: 'Key changes in ISO 27001:2022 that impact cloud security audits.',
+    imageUrl: '/src/assets/awareness/iso-27001.jpg',
     content: `ISO 27001:2022 introduces significant updates relevant to cloud security:
 
 **New Controls Added:**
@@ -2807,6 +2814,7 @@ aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values='0.0.0
     title: 'Microsoft Defender for Cloud Best Practices',
     category: 'Best Practices',
     summary: 'Maximizing security visibility across Azure, AWS, and GCP with Defender for Cloud.',
+    imageUrl: '/src/assets/awareness/defender-cloud.jpg',
     content: `Microsoft Defender for Cloud provides unified security management across multi-cloud environments:
 
 **Essential Configuration:**
@@ -2839,6 +2847,7 @@ aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values='0.0.0
     title: 'Access Review Checklist for Cloud Auditors',
     category: 'Audit Tips',
     summary: 'Step-by-step guide for conducting effective IAM access reviews.',
+    imageUrl: '/src/assets/awareness/access-review.jpg',
     content: `Conducting thorough access reviews is critical for compliance and security:
 
 **Pre-Review Preparation:**
@@ -2874,6 +2883,7 @@ aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values='0.0.0
     title: 'Network Security Group Pitfalls',
     category: 'Misconfigurations',
     summary: 'Critical NSG and security group misconfigurations that expose cloud resources.',
+    imageUrl: '/src/assets/awareness/nsg-security.jpg',
     content: `Network security groups are a primary defense layer but are frequently misconfigured:
 
 **Critical Misconfigurations:**
@@ -2914,6 +2924,7 @@ aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values='0.0.0
     title: 'Key Vault and Secrets Management Essentials',
     category: 'Weekly Awareness',
     summary: 'Best practices for managing secrets across AWS, Azure, and GCP.',
+    imageUrl: '/src/assets/awareness/secrets-mgmt.jpg',
     content: `Proper secrets management is fundamental to cloud security:
 
 **Never Store Secrets In:**
@@ -2952,6 +2963,7 @@ aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values='0.0.0
     title: 'Backup and Disaster Recovery in Cloud',
     category: 'Best Practices',
     summary: 'Essential backup strategies and DR planning for cloud environments.',
+    imageUrl: '/src/assets/awareness/backup-dr.jpg',
     content: `Robust backup and DR is crucial for business continuity:
 
 **Backup Classification (Example Classes):**
@@ -2985,6 +2997,7 @@ aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values='0.0.0
     title: 'Evidence Collection for Cloud Audits',
     category: 'Audit Tips',
     summary: 'How to gather and organize audit evidence efficiently.',
+    imageUrl: '/src/assets/awareness/evidence-collection.jpg',
     content: `Effective evidence collection streamlines audits and supports findings:
 
 **Types of Evidence:**
@@ -3023,6 +3036,7 @@ Example: \`2024-02-15_AWS_IAM_MFA-Status-Report.csv\`
     title: 'Understanding Shared Responsibility Model',
     category: 'Weekly Awareness',
     summary: 'Clarifying security responsibilities between cloud providers and customers.',
+    imageUrl: '/src/assets/awareness/shared-responsibility.jpg',
     content: `The shared responsibility model defines who secures what in cloud environments:
 
 **Provider Responsibilities (OF the Cloud):**
@@ -3063,6 +3077,7 @@ Example: \`2024-02-15_AWS_IAM_MFA-Status-Report.csv\`
     title: 'Logging and Monitoring Gaps',
     category: 'Misconfigurations',
     summary: 'Common logging failures that leave organizations blind to security events.',
+    imageUrl: '/src/assets/awareness/logging-monitoring.jpg',
     content: `Insufficient logging creates dangerous blind spots:
 
 **AWS Logging Gaps:**
@@ -3105,6 +3120,7 @@ Example: \`2024-02-15_AWS_IAM_MFA-Status-Report.csv\`
     title: 'Kubernetes Security in Cloud Environments',
     category: 'Best Practices',
     summary: 'Securing managed Kubernetes services across AWS, Azure, and GCP.',
+    imageUrl: '/src/assets/awareness/kubernetes-security.jpg',
     content: `Kubernetes security requires attention to multiple layers:
 
 **Control Plane Security:**
