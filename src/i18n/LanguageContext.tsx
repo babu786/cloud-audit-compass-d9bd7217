@@ -21,14 +21,40 @@ interface LanguageProviderProps {
   children: ReactNode;
 }
 
+const SUPPORTED_LANGUAGES: Language[] = ['en', 'hi'];
+
+function detectBrowserLanguage(): Language {
+  if (typeof window === 'undefined') return 'en';
+  
+  // Check navigator.languages first (array of preferred languages)
+  const browserLanguages = navigator.languages || [navigator.language];
+  
+  for (const lang of browserLanguages) {
+    const shortLang = lang.split('-')[0].toLowerCase();
+    if (shortLang === 'hi') return 'hi';
+    if (shortLang === 'en') return 'en';
+  }
+  
+  return 'en'; // Default fallback
+}
+
+function getInitialLanguage(): Language {
+  if (typeof window === 'undefined') return 'en';
+  
+  // First check if user has a saved preference
+  const saved = localStorage.getItem('language') as Language | null;
+  if (saved && SUPPORTED_LANGUAGES.includes(saved)) {
+    return saved;
+  }
+  
+  // Auto-detect from browser on first visit
+  const detected = detectBrowserLanguage();
+  localStorage.setItem('language', detected); // Save detected preference
+  return detected;
+}
+
 export function LanguageProvider({ children }: LanguageProviderProps) {
-  const [language, setLanguageState] = useState<Language>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('language') as Language;
-      return saved || 'en';
-    }
-    return 'en';
-  });
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
