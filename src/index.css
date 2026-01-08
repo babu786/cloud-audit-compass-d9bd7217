@@ -146,7 +146,7 @@
   }
 
   html {
-    @apply dark;
+    /* Theme handled by next-themes */
   }
 
   body {
