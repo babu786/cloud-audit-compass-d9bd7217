@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Shield, BookOpen, Compass, HelpCircle, Terminal, BookText } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -18,6 +18,14 @@ export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
   const { t } = useLanguage();
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Use correct logo based on theme - dark theme needs dark logo (white version), light theme needs light logo (black version)
+  const currentLogo = mounted ? (resolvedTheme === 'dark' ? logoDark : logoLight) : logoLight;
 
   const navigation = [
     { name: t.nav.auditControls, href: '/', icon: Shield },
@@ -37,7 +45,7 @@ export function AppLayout({ children }: AppLayoutProps) {
             <div className="relative">
               <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full group-hover:bg-primary/30 transition-colors" />
               <img 
-                src={resolvedTheme === 'dark' ? logoDark : logoLight} 
+                src={currentLogo} 
                 alt="BUGnBULL Logo" 
                 className="h-10 w-10 relative object-contain"
               />
