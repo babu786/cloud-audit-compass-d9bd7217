@@ -21,7 +21,28 @@ interface LanguageProviderProps {
   children: ReactNode;
 }
 
+
 const SUPPORTED_LANGUAGES: Language[] = ['en', 'hi'];
+
+function safeGetStoredLanguage(): Language | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const saved = localStorage.getItem('language') as Language | null;
+    if (saved && SUPPORTED_LANGUAGES.includes(saved)) return saved;
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function safeSetStoredLanguage(lang: Language) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem('language', lang);
+  } catch {
+    // Ignore storage errors (e.g., privacy mode / disabled storage)
+  }
+}
 
 function detectBrowserLanguage(): Language {
   if (typeof window === 'undefined') return 'en';
@@ -42,14 +63,12 @@ function getInitialLanguage(): Language {
   if (typeof window === 'undefined') return 'en';
   
   // First check if user has a saved preference
-  const saved = localStorage.getItem('language') as Language | null;
-  if (saved && SUPPORTED_LANGUAGES.includes(saved)) {
-    return saved;
-  }
+  const saved = safeGetStoredLanguage();
+  if (saved) return saved;
   
   // Auto-detect from browser on first visit
   const detected = detectBrowserLanguage();
-  localStorage.setItem('language', detected); // Save detected preference
+  safeSetStoredLanguage(detected);
   return detected;
 }
 
@@ -58,7 +77,7 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('language', lang);
+    safeSetStoredLanguage(lang);
   };
 
   const t = translations[language];
