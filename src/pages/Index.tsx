@@ -11,8 +11,10 @@ import { AuditControlCard } from '@/components/audit/AuditControlCard';
 import { Button } from '@/components/ui/button';
 import { auditControls } from '@/data/auditContent';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 const Index = () => {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
   const [selectedFrameworks, setSelectedFrameworks] = useState<string[]>([]);
@@ -76,11 +78,10 @@ const Index = () => {
         {/* Hero Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold gradient-text mb-2">
-            Cloud Security Audit Controls
+            {t.index.title}
           </h1>
           <p className="text-muted-foreground max-w-2xl">
-            Step-by-step guidance for auditing cloud infrastructure security. 
-            Select your cloud providers, frameworks, and categories to filter relevant controls.
+            {t.index.subtitle}
           </p>
         </div>
 
@@ -92,7 +93,7 @@ const Index = () => {
               className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               <Filter className="h-4 w-4" />
-              Filters
+              {t.common.filters}
               {showFilters ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
             </button>
             
@@ -103,13 +104,13 @@ const Index = () => {
                   className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <RotateCcw className="h-3 w-3" />
-                  Reset filters
+                  {t.common.resetFilters}
                 </button>
               )}
               <Link to="/guided">
                 <Button variant="outline" size="sm" className="gap-2">
                   <Compass className="h-4 w-4" />
-                  Start Guided Audit
+                  {t.index.startGuidedAudit}
                 </Button>
               </Link>
             </div>
@@ -138,11 +139,11 @@ const Index = () => {
                   <SearchFilter 
                     value={searchQuery} 
                     onChange={setSearchQuery}
-                    placeholder="Search by ID, title, or description..."
+                    placeholder={t.index.searchPlaceholder}
                   />
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">Severity:</span>
+                  <span className="text-xs text-muted-foreground">{t.index.severity}:</span>
                   <SeverityFilter 
                     selected={selectedSeverities} 
                     onSelect={setSelectedSeverities} 
@@ -156,7 +157,7 @@ const Index = () => {
         {/* Results Header */}
         <div className="mb-4 flex items-center justify-between">
           <p className="text-sm text-muted-foreground">
-            Showing <span className="font-medium text-foreground">{filteredControls.length}</span> of {auditControls.length} controls
+            {t.common.showing} <span className="font-medium text-foreground">{filteredControls.length}</span> {t.common.of} {auditControls.length} {t.common.controls}
           </p>
         </div>
 
@@ -164,12 +165,12 @@ const Index = () => {
         <div className="space-y-3">
           {filteredControls.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No controls match your filters.</p>
+              <p className="text-muted-foreground">{t.index.noControlsMatch}</p>
               <button
                 onClick={resetFilters}
                 className="mt-2 text-sm text-primary hover:underline"
               >
-                Clear all filters
+                {t.index.clearAllFilters}
               </button>
             </div>
           ) : (

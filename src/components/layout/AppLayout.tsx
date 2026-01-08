@@ -3,19 +3,22 @@ import { Link, useLocation } from 'react-router-dom';
 import { Shield, BookOpen, Compass } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { LanguageToggle } from '@/components/LanguageToggle';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface AppLayoutProps {
   children: ReactNode;
 }
 
-const navigation = [
-  { name: 'Audit Controls', href: '/', icon: Shield },
-  { name: 'Guided Mode', href: '/guided', icon: Compass },
-  { name: 'Awareness', href: '/awareness', icon: BookOpen },
-];
-
 export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
+  const { t } = useLanguage();
+
+  const navigation = [
+    { name: t.nav.auditControls, href: '/', icon: Shield },
+    { name: t.nav.guidedMode, href: '/guided', icon: Compass },
+    { name: t.nav.awareness, href: '/awareness', icon: BookOpen },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -28,8 +31,8 @@ export function AppLayout({ children }: AppLayoutProps) {
               <Shield className="h-8 w-8 text-primary relative" />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-semibold tracking-tight">Cloud Security</span>
-              <span className="text-xs text-muted-foreground -mt-0.5">Audit Guidance Portal</span>
+              <span className="text-lg font-semibold tracking-tight">{t.nav.cloudSecurity}</span>
+              <span className="text-xs text-muted-foreground -mt-0.5">{t.nav.auditGuidancePortal}</span>
             </div>
           </Link>
 
@@ -39,7 +42,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                 const isActive = location.pathname === item.href;
                 return (
                   <Link
-                    key={item.name}
+                    key={item.href}
                     to={item.href}
                     className={cn(
                       "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
@@ -54,6 +57,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                 );
               })}
             </nav>
+            <LanguageToggle />
             <ThemeToggle />
           </div>
         </div>
