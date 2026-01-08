@@ -215,6 +215,16 @@ export const en = {
     alsoKnownAs: 'Also known as',
     acronymFor: 'Acronym for',
     jumpToLetter: 'Jump to',
+    showRelated: 'Show Related',
+    hideRelated: 'Hide Related',
+    copyDefinition: 'Copy definition',
+    copied: 'Copied!',
+    bookmarked: 'Bookmarked',
+    addBookmark: 'Add to bookmarks',
+    removeBookmark: 'Remove from bookmarks',
+    bookmarkedTerms: 'Bookmarked',
+    noBookmarks: 'No bookmarked terms yet.',
+    pressToSearch: 'Press / to search',
   },
 };
 

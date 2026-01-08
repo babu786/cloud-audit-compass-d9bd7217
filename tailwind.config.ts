@@ -70,6 +70,14 @@ export default {
         aws: "hsl(var(--aws-color))",
         azure: "hsl(var(--azure-color))",
         gcp: "hsl(var(--gcp-color))",
+        category: {
+          identity: "hsl(var(--category-identity))",
+          network: "hsl(var(--category-network))",
+          storage: "hsl(var(--category-storage))",
+          compute: "hsl(var(--category-compute))",
+          compliance: "hsl(var(--category-compliance))",
+          general: "hsl(var(--category-general))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

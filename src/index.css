@@ -53,6 +53,14 @@
     --azure-color: 210 100% 50%;
     --gcp-color: 4 90% 58%;
 
+    /* Category accent colors */
+    --category-identity: 280 70% 55%;
+    --category-network: 200 80% 55%;
+    --category-storage: 160 70% 45%;
+    --category-compute: 45 90% 55%;
+    --category-compliance: 340 75% 55%;
+    --category-general: 187 80% 55%;
+
     /* Glassmorphism */
     --glass-bg: 220 20% 100% / 0.8;
     --glass-border: 220 20% 90% / 0.5;
