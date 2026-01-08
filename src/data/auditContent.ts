@@ -27,6 +27,7 @@ export interface AwarenessArticle {
   summary: string;
   content: string;
   date: string;
+  imageUrl?: string;
 }
 
 export const cloudProviders = [
