@@ -42,12 +42,12 @@ export function AppLayout({ children }: AppLayoutProps) {
       <header className="sticky top-0 z-50 glass border-b border-border/50">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative">
+            <div className="relative flex-shrink-0">
               <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full group-hover:bg-primary/30 transition-colors" />
               <img 
                 src={currentLogo} 
                 alt="BUGnBULL Logo" 
-                className="h-10 w-10 relative object-contain"
+                className="h-12 w-12 relative object-cover scale-150"
               />
             </div>
             <div className="flex flex-col">
