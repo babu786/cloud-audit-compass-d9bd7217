@@ -8,6 +8,8 @@ import { CategorySelector } from '@/components/audit/CategorySelector';
 import { SearchFilter } from '@/components/audit/SearchFilter';
 import { SeverityFilter } from '@/components/audit/SeverityFilter';
 import { AuditControlCard } from '@/components/audit/AuditControlCard';
+import { StatsBar } from '@/components/dashboard/StatsBar';
+import { AnimatedBackground } from '@/components/hero/AnimatedBackground';
 import { Button } from '@/components/ui/button';
 import { auditControls } from '@/data/auditContent';
 import { cn } from '@/lib/utils';
@@ -74,19 +76,25 @@ const Index = () => {
 
   return (
     <AppLayout>
-      <div className="container py-8">
+      <div className="container py-8 relative">
+        {/* Animated Background */}
+        <AnimatedBackground />
+        
         {/* Hero Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold gradient-text mb-2">
+        <div className="mb-8 relative z-10">
+          <h1 className="text-3xl md:text-4xl font-bold gradient-text mb-3">
             {t.index.title}
           </h1>
-          <p className="text-muted-foreground max-w-2xl">
+          <p className="text-muted-foreground max-w-2xl mb-8">
             {t.index.subtitle}
           </p>
+          
+          {/* Stats Dashboard */}
+          <StatsBar />
         </div>
 
         {/* Filters Section */}
-        <div className="mb-6 space-y-4">
+        <div className="mb-6 space-y-4 relative z-10">
           <div className="flex items-center justify-between">
             <button
               onClick={() => setShowFilters(!showFilters)}

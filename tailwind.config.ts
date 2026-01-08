@@ -109,6 +109,18 @@ export default {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0px) scale(1)", opacity: "0.5" },
+          "50%": { transform: "translateY(-20px) scale(1.2)", opacity: "1" },
+        },
+        scan: {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(100%)" },
+        },
+        "card-hover": {
+          "0%": { transform: "perspective(1000px) rotateX(0deg) rotateY(0deg)" },
+          "100%": { transform: "perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-4px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -117,6 +129,9 @@ export default {
         "slide-in": "slide-in-right 0.3s ease-out",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
         shimmer: "shimmer 2s linear infinite",
+        float: "float 3s ease-in-out infinite",
+        scan: "scan 8s linear infinite",
+        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
