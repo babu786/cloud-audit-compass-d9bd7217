@@ -129,15 +129,13 @@ const Index = () => {
         <AnimatedBackground />
         
         {/* Hero Section */}
-        <div className="mb-12 relative z-10">
-          <div className="animate-blur-in">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-4 min-h-[3rem] md:min-h-[4rem] tracking-tight">
-              <TypingEffect texts={heroTexts} typingSpeed={80} deletingSpeed={40} pauseDuration={2500} />
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mb-10 animate-fade-in" style={{ animationDelay: '300ms' }}>
-              {t.index.subtitle}
-            </p>
-          </div>
+        <div className="mb-8 relative z-10">
+          <h1 className="text-3xl md:text-4xl font-bold gradient-text mb-3 min-h-[2.5rem] md:min-h-[3rem]">
+            <TypingEffect texts={heroTexts} typingSpeed={80} deletingSpeed={40} pauseDuration={2500} />
+          </h1>
+          <p className="text-muted-foreground max-w-2xl mb-8">
+            {t.index.subtitle}
+          </p>
           
           {/* Stats Dashboard */}
           <StatsBar />
