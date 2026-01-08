@@ -130,7 +130,7 @@ const Index = () => {
         
         {/* Hero Section */}
         <div className="mb-8 relative z-10">
-          <h1 className="text-3xl md:text-4xl font-bold gradient-text mb-3 min-h-[2.5rem] md:min-h-[3rem]">
+          <h1 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-3 min-h-[1.75rem] xs:min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem]">
             <TypingEffect texts={heroTexts} typingSpeed={80} deletingSpeed={40} pauseDuration={2500} />
           </h1>
           <p className="text-muted-foreground max-w-2xl mb-8">

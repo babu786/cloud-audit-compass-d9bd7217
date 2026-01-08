@@ -65,13 +65,13 @@ function StatItem({ icon, value, label, color, delay, breakdown, total }: StatIt
                   animate-fade-in cursor-default`}
       style={{ animationDelay: `${delay}ms`, animationFillMode: 'backwards' }}
     >
-      <div className={`p-2 sm:p-3 rounded-full ${color} mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-300`}>
+      <div className={`p-1.5 xs:p-2 sm:p-3 rounded-full ${color} mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-300`}>
         {icon}
       </div>
-      <div className="text-xl sm:text-3xl font-bold text-foreground font-mono">
+      <div className="text-lg xs:text-xl sm:text-3xl font-bold text-foreground font-mono">
         <AnimatedCounter value={value} delay={delay} />
       </div>
-      <div className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1 text-center">{label}</div>
+      <div className="text-[10px] xs:text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1 text-center">{label}</div>
       
       {/* Glow effect on hover */}
       <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 
@@ -159,15 +159,17 @@ export function StatsBar() {
           color="bg-severity-medium/20"
           delay={300}
         />
-        <StatItem
-          icon={<Cloud className="w-6 h-6 text-muted-foreground" />}
-          value={stats.aws + stats.azure + stats.gcp}
-          label="Providers"
-          color="bg-muted/50"
-          delay={400}
-          breakdown={providerBreakdown}
-          total={stats.total}
-        />
+        <div className="hidden xs:block">
+          <StatItem
+            icon={<Cloud className="w-6 h-6 text-muted-foreground" />}
+            value={stats.aws + stats.azure + stats.gcp}
+            label="Providers"
+            color="bg-muted/50"
+            delay={400}
+            breakdown={providerBreakdown}
+            total={stats.total}
+          />
+        </div>
       </div>
     </div>
   );
