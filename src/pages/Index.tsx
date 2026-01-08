@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useTransition } from 'react';
 import { Link } from 'react-router-dom';
 import { Filter, Compass, ChevronDown, ChevronUp, RotateCcw } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
@@ -11,6 +11,7 @@ import { AuditControlCard } from '@/components/audit/AuditControlCard';
 import { StatsBar } from '@/components/dashboard/StatsBar';
 import { AnimatedBackground } from '@/components/hero/AnimatedBackground';
 import { TypingEffect } from '@/components/hero/TypingEffect';
+import { CardSkeleton } from '@/components/ui/CardSkeleton';
 import { Button } from '@/components/ui/button';
 import { auditControls } from '@/data/auditContent';
 import { cn } from '@/lib/utils';
@@ -31,6 +32,8 @@ const Index = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSeverities, setSelectedSeverities] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const filteredControls = useMemo(() => {
     return auditControls.filter(control => {
@@ -75,12 +78,49 @@ const Index = () => {
     selectedSeverities.length > 0;
 
   const resetFilters = () => {
-    setSelectedProviders([]);
-    setSelectedFrameworks([]);
-    setSelectedCategories([]);
-    setSelectedSeverities([]);
-    setSearchQuery('');
+    setIsLoading(true);
+    startTransition(() => {
+      setSelectedProviders([]);
+      setSelectedFrameworks([]);
+      setSelectedCategories([]);
+      setSelectedSeverities([]);
+      setSearchQuery('');
+    });
+    setTimeout(() => setIsLoading(false), 300);
   };
+
+  // Show skeleton when filters change
+  const handleProviderSelect = (providers: string[]) => {
+    setIsLoading(true);
+    startTransition(() => setSelectedProviders(providers));
+    setTimeout(() => setIsLoading(false), 300);
+  };
+
+  const handleFrameworkSelect = (frameworks: string[]) => {
+    setIsLoading(true);
+    startTransition(() => setSelectedFrameworks(frameworks));
+    setTimeout(() => setIsLoading(false), 300);
+  };
+
+  const handleCategorySelect = (categories: string[]) => {
+    setIsLoading(true);
+    startTransition(() => setSelectedCategories(categories));
+    setTimeout(() => setIsLoading(false), 300);
+  };
+
+  const handleSeveritySelect = (severities: string[]) => {
+    setIsLoading(true);
+    startTransition(() => setSelectedSeverities(severities));
+    setTimeout(() => setIsLoading(false), 300);
+  };
+
+  const handleSearchChange = (query: string) => {
+    setIsLoading(true);
+    startTransition(() => setSearchQuery(query));
+    setTimeout(() => setIsLoading(false), 300);
+  };
+
+  const showSkeleton = isLoading || isPending;
 
   return (
     <AppLayout>
@@ -140,24 +180,24 @@ const Index = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <CloudProviderSelector 
                   selected={selectedProviders} 
-                  onSelect={setSelectedProviders} 
+                  onSelect={handleProviderSelect} 
                 />
                 <FrameworkSelector 
                   selected={selectedFrameworks} 
-                  onSelect={setSelectedFrameworks} 
+                  onSelect={handleFrameworkSelect} 
                 />
               </div>
               
               <CategorySelector 
                 selected={selectedCategories} 
-                onSelect={setSelectedCategories} 
+                onSelect={handleCategorySelect} 
               />
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
                   <SearchFilter 
                     value={searchQuery} 
-                    onChange={setSearchQuery}
+                    onChange={handleSearchChange}
                     placeholder={t.index.searchPlaceholder}
                   />
                 </div>
@@ -165,7 +205,7 @@ const Index = () => {
                   <span className="text-xs text-muted-foreground">{t.index.severity}:</span>
                   <SeverityFilter 
                     selected={selectedSeverities} 
-                    onSelect={setSelectedSeverities} 
+                    onSelect={handleSeveritySelect} 
                   />
                 </div>
               </div>
@@ -182,7 +222,14 @@ const Index = () => {
 
         {/* Controls List */}
         <div className="space-y-3">
-          {filteredControls.length === 0 ? (
+          {showSkeleton ? (
+            // Skeleton loading state
+            <>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <CardSkeleton key={i} variant="control" />
+              ))}
+            </>
+          ) : filteredControls.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground">{t.index.noControlsMatch}</p>
               <button
