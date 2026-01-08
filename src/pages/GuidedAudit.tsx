@@ -160,8 +160,9 @@ const GuidedAudit = () => {
                 </span>
                 <SeverityBadge severity={currentControl.severity} />
               </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
                 <span className="px-2 py-1 bg-secondary/50 rounded">{currentControl.cloudProvider}</span>
+                <span className="px-2 py-1 bg-primary/20 text-primary rounded font-medium">{currentControl.framework}</span>
                 <span className="px-2 py-1 bg-secondary/50 rounded">{getCategoryName(currentControl.category)}</span>
               </div>
             </div>
