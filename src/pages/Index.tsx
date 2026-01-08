@@ -133,7 +133,10 @@ const Index = () => {
           </div>
 
           {showFilters && (
-            <div className="space-y-6 p-6 rounded-xl bg-card/30 border border-border/30 animate-fade-in">
+            <div className="space-y-6 p-6 rounded-xl backdrop-blur-xl bg-card/40 border border-white/10 dark:border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_40px_rgba(0,200,200,0.08)] transition-all duration-500 relative overflow-hidden group animate-fade-in">
+              {/* Glass highlight */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <CloudProviderSelector 
                   selected={selectedProviders} 
