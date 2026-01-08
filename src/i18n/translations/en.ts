@@ -142,6 +142,9 @@ export const en = {
     storage: 'Storage Security',
     compute: 'Compute Security',
     encryption: 'Encryption & Key Management',
+    databricks: 'Azure Databricks',
+    security: 'Security Services',
+    governance: 'Governance & Compliance',
   },
 
   // Theme
