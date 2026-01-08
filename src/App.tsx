@@ -9,6 +9,7 @@ import { OfflineIndicator } from "@/components/pwa/OfflineIndicator";
 import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { PWAUpdatePrompt } from "@/components/pwa/PWAUpdatePrompt";
 import { FloatingActions } from "@/components/ui/FloatingActions";
+import { KeyboardShortcutsModal } from "@/components/ui/KeyboardShortcutsModal";
 import Index from "./pages/Index";
 import GuidedAudit from "./pages/GuidedAudit";
 import Awareness from "./pages/Awareness";
@@ -49,6 +50,7 @@ const App = () => (
           <InstallPrompt />
           <PWAUpdatePrompt />
           <FloatingActions />
+          <KeyboardShortcutsModal />
           <BrowserRouter>
             <AnimatedRoutes />
           </BrowserRouter>
