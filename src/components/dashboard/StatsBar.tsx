@@ -60,18 +60,18 @@ function MiniProgressBar({ value, max, color }: { value: number; max: number; co
 function StatItem({ icon, value, label, color, delay, breakdown, total }: StatItemProps & { breakdown?: StatBreakdown[]; total?: number }) {
   return (
     <div 
-      className={`group relative flex flex-col items-center p-4 rounded-xl glass border border-border/50 
+      className={`group relative flex flex-col items-center p-2 sm:p-4 rounded-xl glass border border-border/50 
                   hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg
                   animate-fade-in cursor-default`}
       style={{ animationDelay: `${delay}ms`, animationFillMode: 'backwards' }}
     >
-      <div className={`p-3 rounded-full ${color} mb-2 group-hover:scale-110 transition-transform duration-300`}>
+      <div className={`p-2 sm:p-3 rounded-full ${color} mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-300`}>
         {icon}
       </div>
-      <div className="text-3xl font-bold text-foreground font-mono">
+      <div className="text-xl sm:text-3xl font-bold text-foreground font-mono">
         <AnimatedCounter value={value} delay={delay} />
       </div>
-      <div className="text-sm text-muted-foreground mt-1">{label}</div>
+      <div className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1 text-center">{label}</div>
       
       {/* Glow effect on hover */}
       <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 
@@ -127,8 +127,8 @@ export function StatsBar() {
   ];
 
   return (
-    <div className="w-full mb-8">
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    <div className="w-full mb-6 sm:mb-8">
+      <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-4">
         <StatItem
           icon={<Shield className="w-6 h-6 text-primary" />}
           value={stats.total}
