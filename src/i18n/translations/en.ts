@@ -17,6 +17,7 @@ export const en = {
     confirm: 'Confirm',
     yes: 'Yes',
     no: 'No',
+    clear: 'Clear',
   },
 
   // Navigation
@@ -24,6 +25,7 @@ export const en = {
     auditControls: 'Audit Controls',
     guidedMode: 'Guided Mode',
     awareness: 'Awareness',
+    faq: 'FAQ',
     cloudSecurity: 'Cloud Security',
     auditGuidancePortal: 'Audit Guidance Portal',
   },
@@ -152,6 +154,25 @@ export const en = {
     english: 'English',
     hindi: 'हिंदी',
     selectLanguage: 'Select Language',
+  },
+
+  // FAQ
+  faq: {
+    title: 'Frequently Asked Questions',
+    subtitle: 'Common questions, misconfiguration guidance, cloud quirks, and auditor discussion points.',
+    searchPlaceholder: 'Search FAQ...',
+    categories: {
+      all: 'All Questions',
+      common: 'Common Questions',
+      misconfig: 'What If I Find...?',
+      quirks: 'Cloud Quirks',
+      interview: 'Interview Points',
+    },
+    noResults: 'No matching questions found.',
+    relatedControls: 'Related Controls',
+    expandAll: 'Expand All',
+    collapseAll: 'Collapse All',
+    questionsFound: 'questions found',
   },
 };
 
