@@ -226,6 +226,24 @@ export const en = {
     noBookmarks: 'No bookmarked terms yet.',
     pressToSearch: 'Press / to search',
   },
+
+  // PWA
+  pwa: {
+    offlineReady: 'App ready for offline use',
+    offlineMode: "You're offline",
+    contentAvailable: 'All content is available offline',
+    installApp: 'Install App',
+    installTitle: 'Install Audit Portal',
+    installDescription: 'Get full offline access to all security audit guidance',
+    installButton: 'Install Now',
+    installInstructions: 'Installation Instructions',
+    iosInstructions: 'Tap Share → Add to Home Screen',
+    androidInstructions: 'Tap menu → Install app',
+    desktopInstructions: 'Click install icon in address bar',
+    updateAvailable: 'Update available',
+    updateNow: 'Update now',
+    dismiss: 'Dismiss',
+  },
 };
 
 export type Translations = typeof en;

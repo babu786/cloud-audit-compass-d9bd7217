@@ -228,4 +228,22 @@ export const hi: Translations = {
     noBookmarks: 'अभी तक कोई बुकमार्क नहीं।',
     pressToSearch: 'खोजने के लिए / दबाएं',
   },
+
+  // PWA
+  pwa: {
+    offlineReady: 'ऐप ऑफ़लाइन उपयोग के लिए तैयार',
+    offlineMode: 'आप ऑफ़लाइन हैं',
+    contentAvailable: 'सभी सामग्री ऑफ़लाइन उपलब्ध है',
+    installApp: 'ऐप इंस्टॉल करें',
+    installTitle: 'ऑडिट पोर्टल इंस्टॉल करें',
+    installDescription: 'सभी सुरक्षा ऑडिट मार्गदर्शन के लिए पूर्ण ऑफ़लाइन पहुंच प्राप्त करें',
+    installButton: 'अभी इंस्टॉल करें',
+    installInstructions: 'इंस्टॉलेशन निर्देश',
+    iosInstructions: 'शेयर टैप करें → होम स्क्रीन में जोड़ें',
+    androidInstructions: 'मेनू टैप करें → ऐप इंस्टॉल करें',
+    desktopInstructions: 'एड्रेस बार में इंस्टॉल आइकन पर क्लिक करें',
+    updateAvailable: 'अपडेट उपलब्ध',
+    updateNow: 'अभी अपडेट करें',
+    dismiss: 'खारिज करें',
+  },
 };
