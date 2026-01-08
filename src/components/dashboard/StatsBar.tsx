@@ -77,10 +77,10 @@ function StatItem({ icon, value, label, color, delay, breakdown, total }: StatIt
       <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 
                        bg-gradient-to-b from-primary/5 to-transparent pointer-events-none`} />
       
-      {/* Hover tooltip with breakdown */}
+      {/* Hover tooltip with breakdown - hidden on mobile */}
       {breakdown && breakdown.length > 0 && (
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 
-                        transition-all duration-300 pointer-events-none z-20 translate-y-2 group-hover:translate-y-0">
+        <div className="absolute bottom-full left-0 sm:left-1/2 sm:-translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 
+                        transition-all duration-300 pointer-events-none z-20 translate-y-2 group-hover:translate-y-0 hidden sm:block">
           <div className="bg-popover/95 backdrop-blur-sm border border-border rounded-lg p-3 shadow-xl min-w-[140px]">
             <div className="space-y-2">
               {breakdown.map((item) => (
@@ -93,7 +93,7 @@ function StatItem({ icon, value, label, color, delay, breakdown, total }: StatIt
                 </div>
               ))}
             </div>
-            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
+            <div className="absolute -bottom-1 left-4 sm:left-1/2 sm:-translate-x-1/2 w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
           </div>
         </div>
       )}

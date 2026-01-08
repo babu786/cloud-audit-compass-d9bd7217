@@ -201,8 +201,8 @@ const Index = () => {
                     placeholder={t.index.searchPlaceholder}
                   />
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">{t.index.severity}:</span>
+              <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs text-muted-foreground whitespace-nowrap">{t.index.severity}:</span>
                   <SeverityFilter 
                     selected={selectedSeverities} 
                     onSelect={handleSeveritySelect} 

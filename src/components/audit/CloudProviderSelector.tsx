@@ -51,7 +51,7 @@ export function CloudProviderSelector({ selected, onSelect }: CloudProviderSelec
       <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
         Cloud Providers
       </h3>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 min-[400px]:grid-cols-3 gap-3">
         {cloudProviders.map((provider) => {
           const isSelected = selected.includes(provider.id);
           const Icon = iconMap[provider.icon as keyof typeof iconMap];
