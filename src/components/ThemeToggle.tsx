@@ -20,12 +20,20 @@ export function ThemeToggle() {
     );
   }
 
+  const handleThemeChange = () => {
+    document.documentElement.classList.add('transitioning');
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+    setTimeout(() => {
+      document.documentElement.classList.remove('transitioning');
+    }, 300);
+  };
+
   return (
     <Button
       variant="ghost"
       size="icon"
       className="h-9 w-9"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={handleThemeChange}
     >
       {theme === 'dark' ? (
         <Sun className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
