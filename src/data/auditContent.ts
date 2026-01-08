@@ -2773,4 +2773,368 @@ aws ec2 describe-security-groups --filters Name=ip-permission.cidr,Values='0.0.0
 4. Automate credential rotation`,
     date: '2024-01-18',
   },
+  {
+    id: 'weekly-003',
+    title: 'ISO 27001:2022 Cloud Security Updates',
+    category: 'Weekly Awareness',
+    summary: 'Key changes in ISO 27001:2022 that impact cloud security audits.',
+    content: `ISO 27001:2022 introduces significant updates relevant to cloud security:
+
+**New Controls Added:**
+- A.5.23: Information security for cloud services
+- A.5.30: ICT readiness for business continuity
+- A.8.11: Data masking
+- A.8.12: Data leakage prevention
+- A.8.16: Monitoring activities
+- A.8.23: Web filtering
+
+**Cloud-Specific Implications:**
+- Explicit requirement for cloud security policies
+- Enhanced focus on supply chain security
+- Stronger emphasis on threat intelligence
+- New requirements for secure development
+
+**Audit Considerations:**
+1. Review cloud service agreements for security clauses
+2. Verify shared responsibility model is documented
+3. Check data residency and sovereignty requirements
+4. Assess cloud provider security certifications`,
+    date: '2024-02-01',
+  },
+  {
+    id: 'bestpractice-002',
+    title: 'Microsoft Defender for Cloud Best Practices',
+    category: 'Best Practices',
+    summary: 'Maximizing security visibility across Azure, AWS, and GCP with Defender for Cloud.',
+    content: `Microsoft Defender for Cloud provides unified security management across multi-cloud environments:
+
+**Essential Configuration:**
+- Enable Foundational CSPM (free tier minimum)
+- Activate Cloud Workload Protection for production
+- Connect all cloud accounts (Azure, AWS, GCP)
+- Configure email notifications for high-risk alerts
+
+**Security Score Management:**
+- Target 75% or higher baseline score
+- Address Critical/High recommendations first
+- Document exceptions with business justification
+- Review score trends weekly
+
+**Multi-Cloud Visibility:**
+- AWS: Connect via CloudFormation stack
+- GCP: Connect via service account
+- Unified view of recommendations across clouds
+- Consistent severity ratings
+
+**Alert Response:**
+- Configure alert suppression rules carefully
+- Integrate with SIEM (Microsoft Sentinel)
+- Establish response SLAs by severity
+- Document remediation actions`,
+    date: '2024-02-05',
+  },
+  {
+    id: 'tips-002',
+    title: 'Access Review Checklist for Cloud Auditors',
+    category: 'Audit Tips',
+    summary: 'Step-by-step guide for conducting effective IAM access reviews.',
+    content: `Conducting thorough access reviews is critical for compliance and security:
+
+**Pre-Review Preparation:**
+1. Obtain current team roster from HR
+2. Request previous access review documentation
+3. Export IAM user/role lists from all cloud accounts
+4. Identify privileged accounts and service accounts
+
+**Review Checklist:**
+- [ ] Compare IAM users against current employee list
+- [ ] Verify MFA is enabled for all console users
+- [ ] Check for dormant accounts (45+ days inactive)
+- [ ] Review privileged access justifications
+- [ ] Validate service account necessity
+- [ ] Check access key age and rotation
+
+**Evidence Collection:**
+- Screenshot of IAM user list with MFA status
+- Credential report exports
+- Privileged access approval emails
+- Previous review documentation
+- Remediation ticket references
+
+**Common Findings:**
+- Former employees with active access
+- Excessive privileged account usage
+- Missing MFA on admin accounts
+- Undocumented service accounts`,
+    date: '2024-02-10',
+  },
+  {
+    id: 'misconfig-003',
+    title: 'Network Security Group Pitfalls',
+    category: 'Misconfigurations',
+    summary: 'Critical NSG and security group misconfigurations that expose cloud resources.',
+    content: `Network security groups are a primary defense layer but are frequently misconfigured:
+
+**Critical Misconfigurations:**
+
+**1. Open to World (0.0.0.0/0)**
+- SSH (22), RDP (3389) exposed
+- Database ports (3306, 5432, 1433) public
+- Any port with "Any" source
+
+**2. Overly Permissive Rules**
+- Source: Any, Destination: Any, Port: Any
+- "Allow all" rules for troubleshooting left in place
+- Default VPC/NSG rules not reviewed
+
+**3. Missing Egress Controls**
+- No restrictions on outbound traffic
+- Data exfiltration paths open
+- C2 communication possible
+
+**Azure-Specific Issues:**
+- NSG not associated with subnet or NIC
+- Application Security Groups not used
+- Azure Firewall bypassed
+
+**AWS-Specific Issues:**
+- Default security groups modified
+- Self-referencing rules misconfigured
+- Security groups not tied to specific functions
+
+**GCP-Specific Issues:**
+- Default network firewall rules active
+- Priority ordering errors
+- Target tags not properly applied`,
+    date: '2024-02-15',
+  },
+  {
+    id: 'weekly-004',
+    title: 'Key Vault and Secrets Management Essentials',
+    category: 'Weekly Awareness',
+    summary: 'Best practices for managing secrets across AWS, Azure, and GCP.',
+    content: `Proper secrets management is fundamental to cloud security:
+
+**Never Store Secrets In:**
+- Application source code
+- Environment variables (visible in console)
+- Configuration files in repositories
+- CI/CD pipeline definitions
+- Container images
+
+**Use Native Secret Stores:**
+- AWS: Secrets Manager, Parameter Store (SecureString)
+- Azure: Key Vault
+- GCP: Secret Manager
+
+**Key Rotation Best Practices:**
+- Database credentials: 90 days maximum
+- API keys: 90 days or on-demand
+- Encryption keys: Annual rotation minimum
+- SSH keys: Annual rotation with audit
+
+**Access Control:**
+- Restrict secret access to specific services/roles
+- Use VPN/private endpoint access only
+- Enable audit logging for all secret access
+- Implement break-glass procedures
+
+**Monitoring:**
+- Alert on unauthorized access attempts
+- Track secret version changes
+- Monitor for secrets in logs
+- Scan code repositories for exposed secrets`,
+    date: '2024-02-20',
+  },
+  {
+    id: 'bestpractice-003',
+    title: 'Backup and Disaster Recovery in Cloud',
+    category: 'Best Practices',
+    summary: 'Essential backup strategies and DR planning for cloud environments.',
+    content: `Robust backup and DR is crucial for business continuity:
+
+**Backup Classification (Example Classes):**
+- Class A: Critical systems, 4-hour RPO, daily backups
+- Class B: Important systems, 24-hour RPO, daily backups
+- Class C: Standard systems, 72-hour RPO, weekly backups
+- Class D: Development, best effort
+- Class E: No backup required
+
+**Cloud-Native Backup Services:**
+- AWS: AWS Backup, S3 versioning, EBS snapshots
+- Azure: Azure Backup, Site Recovery, blob versioning
+- GCP: Cloud Storage versioning, persistent disk snapshots
+
+**DR Testing Requirements:**
+- Annual DR test minimum for critical systems
+- Document test results and lessons learned
+- Validate RTO/RPO can be achieved
+- Test restoration procedures, not just backups
+
+**Common Failures:**
+- Backups exist but never tested
+- Backup retention too short
+- No cross-region replication
+- Backup credentials exposed
+- No notification on backup failures`,
+    date: '2024-02-25',
+  },
+  {
+    id: 'tips-003',
+    title: 'Evidence Collection for Cloud Audits',
+    category: 'Audit Tips',
+    summary: 'How to gather and organize audit evidence efficiently.',
+    content: `Effective evidence collection streamlines audits and supports findings:
+
+**Types of Evidence:**
+1. **Screenshots**: Console configurations, settings pages
+2. **Exports**: CSV/JSON reports, credential reports
+3. **CLI Output**: Command results with timestamps
+4. **Logs**: Audit logs, access logs, change history
+5. **Documentation**: Policies, procedures, approvals
+
+**Naming Convention:**
+\`[Date]_[CloudProvider]_[Category]_[Description].[ext]\`
+Example: \`2024-02-15_AWS_IAM_MFA-Status-Report.csv\`
+
+**Evidence Standards:**
+- Include timestamps on all evidence
+- Capture full context (URL, account ID visible)
+- Use consistent naming conventions
+- Organize by control or finding
+- Maintain chain of custody
+
+**Automation Tips:**
+- Use cloud CLIs with --output json for parseable results
+- Schedule automatic exports for recurring evidence
+- Use cloud-native compliance tools for reports
+- Leverage Security Hub/Defender for consolidated findings
+
+**Storage:**
+- Secure, access-controlled location
+- Retention per audit requirements
+- Encrypted at rest
+- Version controlled if possible`,
+    date: '2024-03-01',
+  },
+  {
+    id: 'weekly-005',
+    title: 'Understanding Shared Responsibility Model',
+    category: 'Weekly Awareness',
+    summary: 'Clarifying security responsibilities between cloud providers and customers.',
+    content: `The shared responsibility model defines who secures what in cloud environments:
+
+**Provider Responsibilities (OF the Cloud):**
+- Physical data center security
+- Hardware and infrastructure
+- Hypervisor and virtualization layer
+- Network infrastructure
+- Managed service internals
+
+**Customer Responsibilities (IN the Cloud):**
+- Identity and access management
+- Data encryption and protection
+- Network security (security groups, NACLs)
+- Operating system patching (IaaS)
+- Application security
+- Compliance validation
+
+**Model Variations by Service Type:**
+- **IaaS**: Most customer responsibility
+- **PaaS**: Shared more with provider
+- **SaaS**: Least customer responsibility
+
+**Audit Implications:**
+- Understand what controls you can audit
+- Request SOC 2 reports for provider controls
+- Focus on customer-side configurations
+- Document responsibility boundaries clearly
+
+**Common Misunderstandings:**
+- "The cloud is secure" ≠ "My data is secure"
+- Encryption options exist but must be enabled
+- Compliance is customer responsibility
+- Default configurations are rarely secure`,
+    date: '2024-03-05',
+  },
+  {
+    id: 'misconfig-004',
+    title: 'Logging and Monitoring Gaps',
+    category: 'Misconfigurations',
+    summary: 'Common logging failures that leave organizations blind to security events.',
+    content: `Insufficient logging creates dangerous blind spots:
+
+**AWS Logging Gaps:**
+- CloudTrail not enabled in all regions
+- S3 data events not logged
+- VPC Flow Logs disabled
+- CloudWatch Logs retention too short
+- No centralized log aggregation
+
+**Azure Logging Gaps:**
+- Diagnostic settings not configured
+- Azure AD logs not exported
+- NSG Flow Logs disabled
+- Activity logs not retained
+- No Microsoft Sentinel integration
+
+**GCP Logging Gaps:**
+- Data Access logs disabled
+- VPC Flow Logs not enabled
+- Log sinks not configured
+- Insufficient retention period
+- No Security Command Center
+
+**Critical Events to Log:**
+- Authentication successes and failures
+- Privilege escalation attempts
+- Resource creation and deletion
+- Configuration changes
+- Data access (especially sensitive data)
+
+**Detection Requirements:**
+- Real-time alerting for critical events
+- Regular log review processes
+- Correlation across log sources
+- Retention for forensic investigation`,
+    date: '2024-03-10',
+  },
+  {
+    id: 'bestpractice-004',
+    title: 'Kubernetes Security in Cloud Environments',
+    category: 'Best Practices',
+    summary: 'Securing managed Kubernetes services across AWS, Azure, and GCP.',
+    content: `Kubernetes security requires attention to multiple layers:
+
+**Control Plane Security:**
+- Enable authorized IP ranges for API access
+- Use private clusters where possible
+- Rotate certificates regularly
+- Enable audit logging
+
+**Authentication & Authorization:**
+- Integrate with cloud IAM (IRSA, Workload Identity, Pod Identity)
+- Implement RBAC with least privilege
+- Avoid cluster-admin for regular operations
+- Use namespaces for isolation
+
+**Network Security:**
+- Implement Network Policies
+- Use service mesh for mTLS
+- Restrict pod-to-pod communication
+- Enable egress controls
+
+**Workload Security:**
+- Scan container images for vulnerabilities
+- Use read-only root filesystems
+- Run as non-root users
+- Implement Pod Security Standards
+
+**Monitoring:**
+- Enable Defender for Containers / GuardDuty EKS
+- Collect container logs centrally
+- Monitor for anomalous behavior
+- Alert on privilege escalation attempts`,
+    date: '2024-03-15',
+  },
 ];
