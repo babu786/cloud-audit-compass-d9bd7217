@@ -10,10 +10,18 @@ import { SeverityFilter } from '@/components/audit/SeverityFilter';
 import { AuditControlCard } from '@/components/audit/AuditControlCard';
 import { StatsBar } from '@/components/dashboard/StatsBar';
 import { AnimatedBackground } from '@/components/hero/AnimatedBackground';
+import { TypingEffect } from '@/components/hero/TypingEffect';
 import { Button } from '@/components/ui/button';
 import { auditControls } from '@/data/auditContent';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/i18n/LanguageContext';
+
+const heroTexts = [
+  "Cloud Security Audit Portal",
+  "AWS • Azure • GCP Controls",
+  "ISO 27001 • CIS Benchmarks",
+  "Secure Your Cloud Infrastructure",
+];
 
 const Index = () => {
   const { t } = useLanguage();
@@ -82,8 +90,8 @@ const Index = () => {
         
         {/* Hero Section */}
         <div className="mb-8 relative z-10">
-          <h1 className="text-3xl md:text-4xl font-bold gradient-text mb-3">
-            {t.index.title}
+          <h1 className="text-3xl md:text-4xl font-bold gradient-text mb-3 min-h-[2.5rem] md:min-h-[3rem]">
+            <TypingEffect texts={heroTexts} typingSpeed={80} deletingSpeed={40} pauseDuration={2500} />
           </h1>
           <p className="text-muted-foreground max-w-2xl mb-8">
             {t.index.subtitle}
@@ -182,8 +190,14 @@ const Index = () => {
               </button>
             </div>
           ) : (
-            filteredControls.map((control) => (
-              <AuditControlCard key={control.id} control={control} />
+            filteredControls.map((control, index) => (
+              <div 
+                key={control.id}
+                className="animate-fade-in"
+                style={{ animationDelay: `${Math.min(index * 50, 500)}ms` }}
+              >
+                <AuditControlCard control={control} />
+              </div>
             ))
           )}
         </div>

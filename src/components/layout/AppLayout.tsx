@@ -4,6 +4,7 @@ import { Shield, BookOpen, Compass, HelpCircle, Terminal, BookText } from 'lucid
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
+import { MobileNav } from '@/components/layout/MobileNav';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 interface AppLayoutProps {
@@ -35,11 +36,12 @@ export function AppLayout({ children }: AppLayoutProps) {
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-semibold tracking-tight">{t.nav.cloudSecurity}</span>
-              <span className="text-xs text-muted-foreground -mt-0.5">{t.nav.auditGuidancePortal}</span>
+              <span className="text-xs text-muted-foreground -mt-0.5 hidden sm:block">{t.nav.auditGuidancePortal}</span>
             </div>
           </Link>
 
-          <div className="flex items-center gap-2">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-2">
             <nav className="flex items-center gap-1">
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href;
@@ -48,14 +50,22 @@ export function AppLayout({ children }: AppLayoutProps) {
                     key={item.href}
                     to={item.href}
                     className={cn(
-                      "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                      "relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
                       isActive
                         ? "bg-primary/10 text-primary glow-sm"
                         : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                     )}
                   >
-                    <item.icon className="h-4 w-4" />
-                    {item.name}
+                    <item.icon className={cn(
+                      "h-4 w-4 transition-transform duration-200",
+                      !isActive && "group-hover:scale-110 group-hover:rotate-3"
+                    )} />
+                    <span className="relative">
+                      {item.name}
+                      {!isActive && (
+                        <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full" />
+                      )}
+                    </span>
                   </Link>
                 );
               })}
@@ -63,6 +73,9 @@ export function AppLayout({ children }: AppLayoutProps) {
             <LanguageToggle />
             <ThemeToggle />
           </div>
+
+          {/* Mobile Navigation */}
+          <MobileNav />
         </div>
       </header>
 

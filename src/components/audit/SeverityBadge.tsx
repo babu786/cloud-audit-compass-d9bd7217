@@ -12,21 +12,25 @@ const severityConfig = {
     icon: XCircle,
     bgClass: 'bg-severity-critical',
     textClass: 'text-severity-critical',
+    pulseClass: 'animate-pulse-glow-red',
   },
   High: {
     icon: AlertTriangle,
     bgClass: 'bg-severity-high',
     textClass: 'text-severity-high',
+    pulseClass: 'animate-pulse-glow-orange',
   },
   Medium: {
     icon: AlertCircle,
     bgClass: 'bg-severity-medium',
     textClass: 'text-severity-medium',
+    pulseClass: '',
   },
   Low: {
     icon: Info,
     bgClass: 'bg-severity-low',
     textClass: 'text-severity-low',
+    pulseClass: '',
   },
 };
 
@@ -39,6 +43,7 @@ export function SeverityBadge({ severity, showIcon = true, size = 'md' }: Severi
       "inline-flex items-center gap-1.5 rounded-full font-medium",
       config.bgClass,
       config.textClass,
+      config.pulseClass,
       size === 'sm' ? 'px-2 py-0.5 text-xs' : 'px-2.5 py-1 text-xs'
     )}>
       {showIcon && <Icon className={cn(size === 'sm' ? 'h-3 w-3' : 'h-3.5 w-3.5')} />}
