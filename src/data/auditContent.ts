@@ -49,6 +49,9 @@ export const serviceCategories = [
   { id: 'storage', name: 'Storage Security', icon: 'HardDrive' },
   { id: 'compute', name: 'Compute Security', icon: 'Cpu' },
   { id: 'encryption', name: 'Encryption & Key Management', icon: 'Lock' },
+  { id: 'databricks', name: 'Azure Databricks', icon: 'Database' },
+  { id: 'security', name: 'Security Services', icon: 'ShieldCheck' },
+  { id: 'governance', name: 'Governance & Compliance', icon: 'ClipboardCheck' },
 ] as const;
 
 export const auditControls: AuditControl[] = [

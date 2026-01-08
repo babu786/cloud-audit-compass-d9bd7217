@@ -1,6 +1,6 @@
-import { useState, useMemo, useEffect, useTransition } from 'react';
+import { useState, useMemo, useTransition } from 'react';
 import { Link } from 'react-router-dom';
-import { Filter, Compass, ChevronDown, ChevronUp, RotateCcw } from 'lucide-react';
+import { Filter, Compass, ChevronDown, ChevronUp, RotateCcw, List, LayoutGrid } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { CloudProviderSelector } from '@/components/audit/CloudProviderSelector';
 import { FrameworkSelector } from '@/components/audit/FrameworkSelector';
@@ -8,12 +8,13 @@ import { CategorySelector } from '@/components/audit/CategorySelector';
 import { SearchFilter } from '@/components/audit/SearchFilter';
 import { SeverityFilter } from '@/components/audit/SeverityFilter';
 import { AuditControlCard } from '@/components/audit/AuditControlCard';
+import { CollapsibleCategory } from '@/components/audit/CollapsibleCategory';
 import { StatsBar } from '@/components/dashboard/StatsBar';
 import { AnimatedBackground } from '@/components/hero/AnimatedBackground';
 import { TypingEffect } from '@/components/hero/TypingEffect';
 import { CardSkeleton } from '@/components/ui/CardSkeleton';
 import { Button } from '@/components/ui/button';
-import { auditControls } from '@/data/auditContent';
+import { auditControls, serviceCategories } from '@/data/auditContent';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/i18n/LanguageContext';
 
@@ -32,6 +33,7 @@ const Index = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSeverities, setSelectedSeverities] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(true);
+  const [viewMode, setViewMode] = useState<'list' | 'grouped'>('list');
   const [isLoading, setIsLoading] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -122,6 +124,18 @@ const Index = () => {
 
   const showSkeleton = isLoading || isPending;
 
+  // Group controls by category for grouped view
+  const groupedControls = useMemo(() => {
+    const groups: Record<string, typeof filteredControls> = {};
+    filteredControls.forEach(control => {
+      if (!groups[control.category]) {
+        groups[control.category] = [];
+      }
+      groups[control.category].push(control);
+    });
+    return groups;
+  }, [filteredControls]);
+
   return (
     <AppLayout>
       <div className="container px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative">
@@ -153,7 +167,7 @@ const Index = () => {
               {showFilters ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
             </button>
             
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               {hasActiveFilters && (
                 <button
                   onClick={resetFilters}
@@ -163,6 +177,35 @@ const Index = () => {
                   {t.common.resetFilters}
                 </button>
               )}
+              
+              {/* View Mode Toggle */}
+              <div className="flex items-center border border-border/50 rounded-lg p-0.5">
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={cn(
+                    "flex items-center gap-1.5 px-2 py-1 text-xs rounded-md transition-colors",
+                    viewMode === 'list' 
+                      ? "bg-primary text-primary-foreground" 
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <List className="h-3.5 w-3.5" />
+                  List
+                </button>
+                <button
+                  onClick={() => setViewMode('grouped')}
+                  className={cn(
+                    "flex items-center gap-1.5 px-2 py-1 text-xs rounded-md transition-colors",
+                    viewMode === 'grouped' 
+                      ? "bg-primary text-primary-foreground" 
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <LayoutGrid className="h-3.5 w-3.5" />
+                  Grouped
+                </button>
+              </div>
+              
               <Link to="/guided">
                 <Button variant="outline" size="sm" className="gap-2">
                   <Compass className="h-4 w-4" />
@@ -239,7 +282,27 @@ const Index = () => {
                 {t.index.clearAllFilters}
               </button>
             </div>
+          ) : viewMode === 'grouped' ? (
+            // Grouped view by category
+            <div className="space-y-4">
+              {serviceCategories
+                .filter(cat => groupedControls[cat.id]?.length > 0)
+                .map((category, index) => (
+                  <div 
+                    key={category.id}
+                    className="animate-fade-in"
+                    style={{ animationDelay: `${Math.min(index * 100, 500)}ms` }}
+                  >
+                    <CollapsibleCategory
+                      category={category}
+                      controls={groupedControls[category.id]}
+                      defaultOpen={index === 0}
+                    />
+                  </div>
+                ))}
+            </div>
           ) : (
+            // List view
             filteredControls.map((control, index) => (
               <div 
                 key={control.id}

@@ -144,6 +144,9 @@ export const hi: Translations = {
     storage: 'स्टोरेज सुरक्षा',
     compute: 'कंप्यूट सुरक्षा',
     encryption: 'एन्क्रिप्शन और कुंजी प्रबंधन',
+    databricks: 'एज़्योर डेटाब्रिक्स',
+    security: 'सुरक्षा सेवाएं',
+    governance: 'शासन और अनुपालन',
   },
 
   // Theme

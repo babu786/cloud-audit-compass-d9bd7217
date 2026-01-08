@@ -1,4 +1,4 @@
-import { Shield, Network, Activity, HardDrive, Cpu, Lock, Check } from 'lucide-react';
+import { Shield, Network, Activity, HardDrive, Cpu, Lock, Check, Database, ShieldCheck, ClipboardCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { serviceCategories } from '@/data/auditContent';
 
@@ -14,6 +14,9 @@ const iconMap = {
   HardDrive: HardDrive,
   Cpu: Cpu,
   Lock: Lock,
+  Database: Database,
+  ShieldCheck: ShieldCheck,
+  ClipboardCheck: ClipboardCheck,
 };
 
 export function CategorySelector({ selected, onSelect }: CategorySelectorProps) {
