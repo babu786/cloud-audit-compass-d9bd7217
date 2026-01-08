@@ -6,6 +6,9 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useTheme } from 'next-themes';
+import logoLight from '@/assets/logo-light.png';
+import logoDark from '@/assets/logo-dark.png';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -14,6 +17,7 @@ interface AppLayoutProps {
 export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
   const { t } = useLanguage();
+  const { resolvedTheme } = useTheme();
 
   const navigation = [
     { name: t.nav.auditControls, href: '/', icon: Shield },
@@ -32,7 +36,11 @@ export function AppLayout({ children }: AppLayoutProps) {
           <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
               <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full group-hover:bg-primary/30 transition-colors" />
-              <Shield className="h-8 w-8 text-primary relative" />
+              <img 
+                src={resolvedTheme === 'dark' ? logoDark : logoLight} 
+                alt="BUGnBULL Logo" 
+                className="h-10 w-10 relative object-contain"
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-semibold tracking-tight">{t.nav.cloudSecurity}</span>
