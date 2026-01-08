@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus } from 'lucide-react';
+import { Plus, Image, X } from 'lucide-react';
 import { AwarenessArticle } from '@/data/auditContent';
 
 interface AddAwarenessModalProps {
@@ -27,6 +27,31 @@ export const AddAwarenessModal = ({ open, onClose, onAdd }: AddAwarenessModalPro
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [imageUrl, setImageUrl] = useState('');
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Convert to base64 for localStorage storage
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = reader.result as string;
+        setImagePreview(base64);
+        setImageUrl(base64);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setImagePreview(null);
+    setImageUrl('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,6 +65,7 @@ export const AddAwarenessModal = ({ open, onClose, onAdd }: AddAwarenessModalPro
       content,
       category: category as AwarenessArticle['category'],
       date,
+      imageUrl: imageUrl || undefined,
     };
 
     onAdd(newArticle);
@@ -50,6 +76,8 @@ export const AddAwarenessModal = ({ open, onClose, onAdd }: AddAwarenessModalPro
     setContent('');
     setCategory('');
     setDate(new Date().toISOString().split('T')[0]);
+    setImageUrl('');
+    setImagePreview(null);
     onClose();
   };
 
@@ -98,6 +126,44 @@ export const AddAwarenessModal = ({ open, onClose, onAdd }: AddAwarenessModalPro
                 required
               />
             </div>
+          </div>
+
+          {/* Image Upload */}
+          <div className="space-y-2">
+            <Label>Article Image (optional)</Label>
+            {imagePreview ? (
+              <div className="relative rounded-lg overflow-hidden border border-border">
+                <img 
+                  src={imagePreview} 
+                  alt="Preview" 
+                  className="w-full h-40 object-cover"
+                />
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="icon"
+                  className="absolute top-2 right-2 h-8 w-8"
+                  onClick={handleRemoveImage}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            ) : (
+              <div 
+                onClick={() => fileInputRef.current?.click()}
+                className="flex flex-col items-center justify-center gap-2 p-6 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-primary/50 transition-colors"
+              >
+                <Image className="h-8 w-8 text-muted-foreground" />
+                <span className="text-sm text-muted-foreground">Click to upload image</span>
+              </div>
+            )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
           </div>
 
           <div className="space-y-2">

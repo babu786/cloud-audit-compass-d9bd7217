@@ -97,6 +97,15 @@ export function AwarenessModal({ article, open, onClose }: AwarenessModalProps) 
         </DialogHeader>
         
         <div className="mt-4 border-t border-border/50 pt-4">
+          {article.imageUrl && (
+            <div className="mb-4 rounded-lg overflow-hidden">
+              <img 
+                src={article.imageUrl} 
+                alt={article.title}
+                className="w-full h-auto max-h-64 object-cover"
+              />
+            </div>
+          )}
           <p className="text-sm text-foreground font-medium mb-4">{article.summary}</p>
           <div className="prose prose-sm prose-invert max-w-none">
             {renderContent(article.content)}
