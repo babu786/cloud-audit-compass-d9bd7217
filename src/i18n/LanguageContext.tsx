@@ -15,7 +15,7 @@ const translations: Record<Language, Translations> = {
   hi,
 };
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+export const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 interface LanguageProviderProps {
   children: ReactNode;

@@ -1,12 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useLanguage } from '@/i18n/LanguageContext';
+import { LanguageContext } from '@/i18n/LanguageContext';
 import { useRegisterSW } from 'virtual:pwa-register/react';
 
 export const PWAUpdatePrompt = () => {
-  const { t } = useLanguage();
+  const context = useContext(LanguageContext);
   const [showReload, setShowReload] = useState(false);
+  
+  // Fallback translations if context not available (during hot reload)
+  const pwa = context?.t?.pwa ?? {
+    updateAvailable: 'Update available',
+    updateNow: 'Update now',
+    dismiss: 'Dismiss',
+  };
 
   const {
     needRefresh: [needRefresh, setNeedRefresh],
@@ -46,7 +53,7 @@ export const PWAUpdatePrompt = () => {
       <div className="bg-primary text-primary-foreground px-4 py-3 rounded-lg shadow-lg flex items-center gap-3">
         <RefreshCw className="h-5 w-5" />
         <div className="flex-1">
-          <p className="font-medium text-sm">{t.pwa.updateAvailable}</p>
+          <p className="font-medium text-sm">{pwa.updateAvailable}</p>
         </div>
         <div className="flex gap-2">
           <Button
@@ -55,7 +62,7 @@ export const PWAUpdatePrompt = () => {
             onClick={handleUpdate}
             className="text-xs"
           >
-            {t.pwa.updateNow}
+            {pwa.updateNow}
           </Button>
           <Button
             size="sm"
@@ -63,7 +70,7 @@ export const PWAUpdatePrompt = () => {
             onClick={handleDismiss}
             className="text-xs hover:bg-primary-foreground/20"
           >
-            {t.pwa.dismiss}
+            {pwa.dismiss}
           </Button>
         </div>
       </div>
