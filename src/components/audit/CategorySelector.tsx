@@ -30,7 +30,7 @@ export function CategorySelector({ selected, onSelect }: CategorySelectorProps) 
       <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
         Service Categories
       </h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+      <div className="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-6 gap-1.5 sm:gap-2">
         {serviceCategories.map((category) => {
           const isSelected = selected.includes(category.id);
           const Icon = iconMap[category.icon as keyof typeof iconMap];

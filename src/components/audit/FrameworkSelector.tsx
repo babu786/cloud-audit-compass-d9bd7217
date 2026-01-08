@@ -27,7 +27,7 @@ export function FrameworkSelector({ selected, onSelect }: FrameworkSelectorProps
       <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
         Audit Frameworks
       </h3>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 min-[400px]:grid-cols-3 gap-2 sm:gap-3">
         {frameworks.map((framework) => {
           const isSelected = selected.includes(framework.id);
           const Icon = iconMap[framework.id] || FileCheck;
@@ -37,7 +37,7 @@ export function FrameworkSelector({ selected, onSelect }: FrameworkSelectorProps
               key={framework.id}
               onClick={() => toggleFramework(framework.id)}
               className={cn(
-                "relative group flex flex-col items-center gap-3 p-4 rounded-xl border transition-all duration-300",
+                "relative group flex flex-col items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl border transition-all duration-300",
                 isSelected
                   ? "bg-primary/10 border-primary/50 glow-sm"
                   : "bg-card/50 border-border/50 hover:border-primary/30 hover:bg-card/80"

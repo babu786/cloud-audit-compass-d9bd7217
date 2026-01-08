@@ -13,11 +13,11 @@ export function MobileNav() {
 
   const navItems = [
     { path: '/', label: t.nav.auditControls, icon: Shield },
-    { path: '/guided-audit', label: t.nav.guidedMode, icon: ClipboardCheck },
+    { path: '/guided', label: t.nav.guidedMode, icon: ClipboardCheck },
     { path: '/awareness', label: t.nav.awareness, icon: BookOpen },
     { path: '/glossary', label: t.nav.glossary, icon: FileText },
     { path: '/faq', label: t.nav.faq, icon: HelpCircle },
-    { path: '/cli-commands', label: t.nav.cliCommands, icon: Terminal },
+    { path: '/cli', label: t.nav.cliCommands, icon: Terminal },
   ];
 
   return (
