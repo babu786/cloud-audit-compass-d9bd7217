@@ -180,8 +180,11 @@ function FAQAccordionItem({ faq, searchQuery }: FAQAccordionItemProps) {
   return (
     <AccordionItem
       value={faq.id}
-      className="border rounded-lg px-4 bg-card hover:bg-accent/50 transition-all duration-300 
-                 data-[state=open]:border-primary/30 data-[state=open]:shadow-md data-[state=open]:shadow-primary/5"
+      className="border rounded-lg px-4 bg-card transition-all duration-300 
+                 hover:bg-accent/30
+                 data-[state=open]:bg-card data-[state=open]:border-primary/40 
+                 data-[state=open]:shadow-lg data-[state=open]:shadow-primary/10
+                 data-[state=open]:hover:bg-card"
     >
       <AccordionTrigger className="text-left hover:no-underline py-4 group/trigger">
         <div className="flex items-start gap-3 flex-1">
