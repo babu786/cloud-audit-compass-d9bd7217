@@ -1,23 +1,28 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Home, Filter, Terminal, CheckCircle2, XCircle, Lightbulb, AlertTriangle } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight, Home, Filter, Terminal, CheckCircle2, XCircle, Lightbulb, AlertTriangle, PartyPopper } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { CloudProviderSelector } from '@/components/audit/CloudProviderSelector';
 import { FrameworkSelector } from '@/components/audit/FrameworkSelector';
 import { CategorySelector } from '@/components/audit/CategorySelector';
 import { SeverityBadge } from '@/components/audit/SeverityBadge';
 import { Button } from '@/components/ui/button';
+import { Confetti } from '@/components/ui/Confetti';
+import { CompletionModal } from '@/components/ui/CompletionModal';
 import { auditControls, serviceCategories } from '@/data/auditContent';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 const GuidedAudit = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
   const [selectedFrameworks, setSelectedFrameworks] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showFilters, setShowFilters] = useState(true);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
 
   const filteredControls = useMemo(() => {
     return auditControls.filter(control => {
@@ -49,6 +54,37 @@ const GuidedAudit = () => {
       setCurrentIndex(currentIndex + 1);
     }
   };
+
+  const handleComplete = () => {
+    setShowConfetti(true);
+    setShowCompletionModal(true);
+  };
+
+  const handleRestart = () => {
+    setShowCompletionModal(false);
+    setShowConfetti(false);
+    setShowFilters(true);
+    setCurrentIndex(0);
+    setSelectedProviders([]);
+    setSelectedFrameworks([]);
+    setSelectedCategories([]);
+  };
+
+  const handleGoHome = () => {
+    navigate('/');
+  };
+
+  const completionStats = useMemo(() => {
+    return {
+      totalControls,
+      criticalCount: filteredControls.filter(c => c.severity === 'Critical').length,
+      highCount: filteredControls.filter(c => c.severity === 'High').length,
+      mediumCount: filteredControls.filter(c => c.severity === 'Medium').length,
+      lowCount: filteredControls.filter(c => c.severity === 'Low').length,
+      providers: [...new Set(filteredControls.map(c => c.cloudProvider))],
+      frameworks: [...new Set(filteredControls.map(c => c.framework))],
+    };
+  }, [filteredControls, totalControls]);
 
   const startAudit = () => {
     setShowFilters(false);
@@ -126,8 +162,18 @@ const GuidedAudit = () => {
     );
   }
 
+  const isLastControl = currentIndex === totalControls - 1;
+
   return (
     <AppLayout>
+      <Confetti isActive={showConfetti} />
+      <CompletionModal 
+        isOpen={showCompletionModal}
+        onClose={() => setShowCompletionModal(false)}
+        onRestart={handleRestart}
+        onGoHome={handleGoHome}
+        stats={completionStats}
+      />
       <div className="container py-6 max-w-4xl">
         {/* Progress Bar */}
         <div className="mb-6">
@@ -273,14 +319,23 @@ const GuidedAudit = () => {
             </Button>
           </Link>
 
-          <Button
-            onClick={handleNext}
-            disabled={currentIndex === totalControls - 1}
-            className="gap-2"
-          >
-            {t.guided.next}
-            <ChevronRight className="h-4 w-4" />
-          </Button>
+          {isLastControl ? (
+            <Button
+              onClick={handleComplete}
+              className="gap-2 bg-gradient-to-r from-primary to-green-500 hover:from-primary/90 hover:to-green-500/90"
+            >
+              <PartyPopper className="h-4 w-4" />
+              Complete Audit
+            </Button>
+          ) : (
+            <Button
+              onClick={handleNext}
+              className="gap-2"
+            >
+              {t.guided.next}
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          )}
         </div>
       </div>
     </AppLayout>
