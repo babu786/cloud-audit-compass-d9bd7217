@@ -4,19 +4,21 @@ import { Menu, X, Shield, BookOpen, FileText, HelpCircle, Terminal, ClipboardChe
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
-
-const navItems = [
-  { path: '/', label: 'Audit Controls', icon: Shield },
-  { path: '/guided-audit', label: 'Guided Audit', icon: ClipboardCheck },
-  { path: '/awareness', label: 'Awareness', icon: BookOpen },
-  { path: '/glossary', label: 'Glossary', icon: FileText },
-  { path: '/faq', label: 'FAQ', icon: HelpCircle },
-  { path: '/cli-commands', label: 'CLI Commands', icon: Terminal },
-];
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
+
+  const navItems = [
+    { path: '/', label: t.nav.auditControls, icon: Shield },
+    { path: '/guided-audit', label: t.nav.guidedMode, icon: ClipboardCheck },
+    { path: '/awareness', label: t.nav.awareness, icon: BookOpen },
+    { path: '/glossary', label: t.nav.glossary, icon: FileText },
+    { path: '/faq', label: t.nav.faq, icon: HelpCircle },
+    { path: '/cli-commands', label: t.nav.cliCommands, icon: Terminal },
+  ];
 
   return (
     <div className="md:hidden">

@@ -99,8 +99,8 @@ export function AuditControlCard({ control, defaultExpanded = false }: AuditCont
                 <Terminal className="h-4 w-4" />
                 CLI Command
               </h4>
-              <pre className="bg-background/80 border border-border/50 rounded-lg p-3 overflow-x-auto">
-                <code className="text-xs font-mono text-primary">{control.cliCheck}</code>
+              <pre className="bg-background/80 border border-border/50 rounded-lg p-3 overflow-x-auto max-w-full">
+                <code className="text-xs sm:text-sm font-mono text-primary whitespace-pre-wrap break-all sm:whitespace-pre sm:break-normal">{control.cliCheck}</code>
               </pre>
             </section>
           )}
