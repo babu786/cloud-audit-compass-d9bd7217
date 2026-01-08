@@ -26,6 +26,7 @@ export const en = {
     guidedMode: 'Guided Mode',
     awareness: 'Awareness',
     faq: 'FAQ',
+    cliCommands: 'CLI Commands',
     cloudSecurity: 'Cloud Security',
     auditGuidancePortal: 'Audit Guidance Portal',
   },
@@ -173,6 +174,21 @@ export const en = {
     expandAll: 'Expand All',
     collapseAll: 'Collapse All',
     questionsFound: 'questions found',
+  },
+
+  // CLI Commands
+  cli: {
+    title: 'CLI Command Library',
+    subtitle: 'Ready-to-use CLI commands for cloud security auditing. Click to copy any command.',
+    searchPlaceholder: 'Search commands...',
+    allProviders: 'All Providers',
+    allCategories: 'All Categories',
+    provider: 'Provider',
+    category: 'Category',
+    commandsFound: 'commands found',
+    noResults: 'No matching commands found.',
+    copied: 'Command copied to clipboard!',
+    copyFailed: 'Failed to copy command',
   },
 };
 

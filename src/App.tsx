@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import GuidedAudit from "./pages/GuidedAudit";
 import Awareness from "./pages/Awareness";
 import FAQ from "./pages/FAQ";
+import CLICommands from "./pages/CLICommands";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
               <Route path="/guided" element={<GuidedAudit />} />
               <Route path="/awareness" element={<Awareness />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/cli" element={<CLICommands />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
