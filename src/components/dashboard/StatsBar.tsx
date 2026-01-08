@@ -39,7 +39,25 @@ function AnimatedCounter({ value, delay }: { value: number; delay: number }) {
   return <span>{count}</span>;
 }
 
-function StatItem({ icon, value, label, color, delay }: StatItemProps) {
+interface StatBreakdown {
+  label: string;
+  value: number;
+  color: string;
+}
+
+function MiniProgressBar({ value, max, color }: { value: number; max: number; color: string }) {
+  const percentage = max > 0 ? (value / max) * 100 : 0;
+  return (
+    <div className="w-full h-1.5 bg-muted/50 rounded-full overflow-hidden">
+      <div 
+        className={`h-full rounded-full transition-all duration-500 ${color}`}
+        style={{ width: `${percentage}%` }}
+      />
+    </div>
+  );
+}
+
+function StatItem({ icon, value, label, color, delay, breakdown, total }: StatItemProps & { breakdown?: StatBreakdown[]; total?: number }) {
   return (
     <div 
       className={`group relative flex flex-col items-center p-4 rounded-xl glass border border-border/50 
@@ -58,6 +76,27 @@ function StatItem({ icon, value, label, color, delay }: StatItemProps) {
       {/* Glow effect on hover */}
       <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 
                        bg-gradient-to-b from-primary/5 to-transparent pointer-events-none`} />
+      
+      {/* Hover tooltip with breakdown */}
+      {breakdown && breakdown.length > 0 && (
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 
+                        transition-all duration-300 pointer-events-none z-20 translate-y-2 group-hover:translate-y-0">
+          <div className="bg-popover/95 backdrop-blur-sm border border-border rounded-lg p-3 shadow-xl min-w-[140px]">
+            <div className="space-y-2">
+              {breakdown.map((item) => (
+                <div key={item.label} className="space-y-1">
+                  <div className="flex justify-between text-xs">
+                    <span className="text-muted-foreground">{item.label}</span>
+                    <span className="font-mono font-medium">{item.value}</span>
+                  </div>
+                  <MiniProgressBar value={item.value} max={total || value} color={item.color} />
+                </div>
+              ))}
+            </div>
+            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-r border-b border-border rotate-45" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -74,6 +113,19 @@ export function StatsBar() {
     gcp: auditControls.filter(c => c.cloudProvider === 'GCP').length,
   };
 
+  const severityBreakdown = [
+    { label: 'Critical', value: stats.critical, color: 'bg-severity-critical' },
+    { label: 'High', value: stats.high, color: 'bg-severity-high' },
+    { label: 'Medium', value: stats.medium, color: 'bg-severity-medium' },
+    { label: 'Low', value: stats.low, color: 'bg-severity-low' },
+  ];
+
+  const providerBreakdown = [
+    { label: 'AWS', value: stats.aws, color: 'bg-orange-500' },
+    { label: 'Azure', value: stats.azure, color: 'bg-blue-500' },
+    { label: 'GCP', value: stats.gcp, color: 'bg-red-500' },
+  ];
+
   return (
     <div className="w-full mb-8">
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -83,6 +135,8 @@ export function StatsBar() {
           label="Total Controls"
           color="bg-primary/20"
           delay={0}
+          breakdown={severityBreakdown}
+          total={stats.total}
         />
         <StatItem
           icon={<AlertTriangle className="w-6 h-6 text-severity-critical" />}
@@ -111,6 +165,8 @@ export function StatsBar() {
           label="Providers"
           color="bg-muted/50"
           delay={400}
+          breakdown={providerBreakdown}
+          total={stats.total}
         />
       </div>
     </div>

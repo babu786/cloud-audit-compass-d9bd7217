@@ -180,11 +180,13 @@ function FAQAccordionItem({ faq, searchQuery }: FAQAccordionItemProps) {
   return (
     <AccordionItem
       value={faq.id}
-      className="border rounded-lg px-4 bg-card hover:bg-accent/50 transition-colors"
+      className="border rounded-lg px-4 bg-card hover:bg-accent/50 transition-all duration-300 
+                 data-[state=open]:border-primary/30 data-[state=open]:shadow-md data-[state=open]:shadow-primary/5"
     >
-      <AccordionTrigger className="text-left hover:no-underline py-4">
+      <AccordionTrigger className="text-left hover:no-underline py-4 group/trigger">
         <div className="flex items-start gap-3 flex-1">
-          <CategoryIcon className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+          <CategoryIcon className="h-5 w-5 text-primary mt-0.5 shrink-0 transition-transform duration-300 
+                                   group-data-[state=open]/trigger:rotate-12" />
           <div className="flex-1">
             <span className="font-medium text-foreground">
               {highlightText(faq.question, searchQuery)}
@@ -204,7 +206,7 @@ function FAQAccordionItem({ faq, searchQuery }: FAQAccordionItemProps) {
           </div>
         </div>
       </AccordionTrigger>
-      <AccordionContent className="pb-4">
+      <AccordionContent className="pb-4 animate-accordion-spring">
         <div className="pl-8 prose prose-sm dark:prose-invert max-w-none">
           <div className="whitespace-pre-wrap text-muted-foreground leading-relaxed">
             {faq.answer.split('\n').map((line, i) => {
