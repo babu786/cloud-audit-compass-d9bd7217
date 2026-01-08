@@ -21,10 +21,10 @@ export function AuditControlCard({ control, defaultExpanded = false }: AuditCont
 
   return (
     <div className={cn(
-      "group rounded-xl border transition-all duration-300 animate-fade-in",
+      "group rounded-xl border transition-all duration-300 animate-fade-in card-3d gradient-border-animated",
       isExpanded 
         ? "bg-card border-primary/30 glow-sm" 
-        : "bg-card/50 border-border/50 hover:border-primary/20 hover:bg-card/80"
+        : "bg-card/50 border-border/50 hover:border-primary/20 hover:bg-card/80 hover:shadow-lg"
     )}>
       {/* Header */}
       <button
@@ -36,8 +36,8 @@ export function AuditControlCard({ control, defaultExpanded = false }: AuditCont
           isExpanded ? "bg-primary/20" : "bg-secondary/50"
         )}>
           <CloudIcon className={cn(
-            "h-5 w-5 transition-colors",
-            isExpanded ? "text-primary" : "text-muted-foreground"
+            "h-5 w-5 transition-all duration-300",
+            isExpanded ? "text-primary" : "text-muted-foreground group-hover:scale-110"
           )} />
         </div>
         

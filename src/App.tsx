@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/i18n/LanguageContext";
 import { OfflineIndicator } from "@/components/pwa/OfflineIndicator";
 import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { PWAUpdatePrompt } from "@/components/pwa/PWAUpdatePrompt";
+import { FloatingActions } from "@/components/ui/FloatingActions";
 import Index from "./pages/Index";
 import GuidedAudit from "./pages/GuidedAudit";
 import Awareness from "./pages/Awareness";
@@ -28,6 +29,7 @@ const App = () => (
           <OfflineIndicator />
           <InstallPrompt />
           <PWAUpdatePrompt />
+          <FloatingActions />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
