@@ -81,19 +81,19 @@ function StatItem({ icon, value, label, color, delay, breakdown, total }: StatIt
       {breakdown && breakdown.length > 0 && (
         <div className="absolute bottom-full left-0 sm:left-1/2 sm:-translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 
                         transition-all duration-300 pointer-events-none z-50 translate-y-2 group-hover:translate-y-0 hidden sm:block">
-          <div className="bg-card border-2 border-primary/30 rounded-lg p-3 shadow-2xl min-w-[160px] ring-1 ring-black/5 dark:ring-white/10">
-            <div className="space-y-2">
+          <div className="bg-background border-2 border-primary/60 rounded-lg p-3 shadow-[0_20px_50px_rgba(0,0,0,0.5)] min-w-[180px] ring-2 ring-primary/20">
+            <div className="space-y-2.5">
               {breakdown.map((item) => (
                 <div key={item.label} className="space-y-1">
                   <div className="flex justify-between text-xs">
-                    <span className="text-muted-foreground">{item.label}</span>
-                    <span className="font-mono font-medium">{item.value}</span>
+                    <span className="text-foreground/80 font-medium">{item.label}</span>
+                    <span className="font-mono font-bold text-foreground">{item.value}</span>
                   </div>
                   <MiniProgressBar value={item.value} max={total || value} color={item.color} />
                 </div>
               ))}
             </div>
-            <div className="absolute -bottom-1 left-4 sm:left-1/2 sm:-translate-x-1/2 w-2 h-2 bg-card border-r-2 border-b-2 border-primary/30 rotate-45" />
+            <div className="absolute -bottom-1.5 left-4 sm:left-1/2 sm:-translate-x-1/2 w-3 h-3 bg-background border-r-2 border-b-2 border-primary/60 rotate-45" />
           </div>
         </div>
       )}
@@ -114,10 +114,10 @@ export function StatsBar() {
   };
 
   const severityBreakdown = [
-    { label: 'Critical', value: stats.critical, color: 'bg-severity-critical' },
-    { label: 'High', value: stats.high, color: 'bg-severity-high' },
-    { label: 'Medium', value: stats.medium, color: 'bg-severity-medium' },
-    { label: 'Low', value: stats.low, color: 'bg-severity-low' },
+    { label: 'Critical', value: stats.critical, color: 'bg-red-500' },
+    { label: 'High', value: stats.high, color: 'bg-orange-500' },
+    { label: 'Medium', value: stats.medium, color: 'bg-yellow-500' },
+    { label: 'Low', value: stats.low, color: 'bg-green-500' },
   ];
 
   const providerBreakdown = [
