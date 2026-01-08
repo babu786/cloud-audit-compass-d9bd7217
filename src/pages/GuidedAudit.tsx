@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Home, Filter, X, Terminal, CheckCircle2, XCircle, Lightbulb, AlertTriangle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, Filter, Terminal, CheckCircle2, XCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { CloudProviderSelector } from '@/components/audit/CloudProviderSelector';
 import { FrameworkSelector } from '@/components/audit/FrameworkSelector';
@@ -9,8 +9,10 @@ import { SeverityBadge } from '@/components/audit/SeverityBadge';
 import { Button } from '@/components/ui/button';
 import { auditControls, serviceCategories } from '@/data/auditContent';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 const GuidedAudit = () => {
+  const { t } = useLanguage();
   const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
   const [selectedFrameworks, setSelectedFrameworks] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -63,10 +65,10 @@ const GuidedAudit = () => {
         <div className="container py-8 max-w-4xl">
           <div className="mb-8">
             <h1 className="text-3xl font-bold gradient-text mb-2">
-              Guided Audit Mode
+              {t.guided.title}
             </h1>
             <p className="text-muted-foreground">
-              Focus on one control at a time. Select your audit scope to begin.
+              {t.guided.subtitle}
             </p>
           </div>
 
@@ -88,14 +90,14 @@ const GuidedAudit = () => {
 
             <div className="flex items-center justify-between pt-4 border-t border-border/30">
               <p className="text-sm text-muted-foreground">
-                {filteredControls.length} controls selected
+                {filteredControls.length} {t.guided.controlsSelected}
               </p>
               <Button 
                 onClick={startAudit}
                 disabled={filteredControls.length === 0}
                 className="gap-2"
               >
-                Start Guided Audit
+                {t.guided.startGuidedAudit}
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
@@ -103,7 +105,7 @@ const GuidedAudit = () => {
 
           <div className="mt-6 text-center">
             <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              ← Back to all controls
+              {t.guided.backToControls}
             </Link>
           </div>
         </div>
@@ -115,9 +117,9 @@ const GuidedAudit = () => {
     return (
       <AppLayout>
         <div className="container py-12 text-center">
-          <p className="text-muted-foreground mb-4">No controls match your selection.</p>
+          <p className="text-muted-foreground mb-4">{t.guided.noControlsMatch}</p>
           <Button onClick={() => setShowFilters(true)}>
-            Update Selection
+            {t.guided.updateSelection}
           </Button>
         </div>
       </AppLayout>
@@ -135,10 +137,10 @@ const GuidedAudit = () => {
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <Filter className="h-4 w-4" />
-              Change scope
+              {t.guided.changeScope}
             </button>
             <span className="text-sm text-muted-foreground">
-              {currentIndex + 1} of {totalControls}
+              {currentIndex + 1} {t.common.of} {totalControls}
             </span>
           </div>
           <div className="h-1.5 bg-secondary rounded-full overflow-hidden">
@@ -175,7 +177,7 @@ const GuidedAudit = () => {
           <div className="p-6 space-y-6">
             {/* What to Check */}
             <section>
-              <h3 className="text-sm font-semibold text-foreground mb-2">What to Check</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-2">{t.guided.whatToCheck}</h3>
               <p className="text-muted-foreground">{currentControl.whatToCheck}</p>
             </section>
 
@@ -183,14 +185,14 @@ const GuidedAudit = () => {
             <section className="bg-primary/5 border border-primary/20 rounded-lg p-4">
               <h3 className="text-sm font-semibold text-primary flex items-center gap-2 mb-2">
                 <AlertTriangle className="h-4 w-4" />
-                Why It Matters
+                {t.guided.whyItMatters}
               </h3>
               <p className="text-sm text-muted-foreground">{currentControl.whyItMatters}</p>
             </section>
 
             {/* Console Steps */}
             <section>
-              <h3 className="text-sm font-semibold text-foreground mb-3">Step-by-Step Instructions</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-3">{t.guided.stepByStep}</h3>
               <ol className="space-y-3">
                 {currentControl.consoleSteps.map((step, index) => (
                   <li key={index} className="flex items-start gap-3">
@@ -208,7 +210,7 @@ const GuidedAudit = () => {
               <section>
                 <h3 className="text-sm font-semibold text-foreground flex items-center gap-2 mb-3">
                   <Terminal className="h-4 w-4" />
-                  CLI Command
+                  {t.guided.cliCommand}
                 </h3>
                 <pre className="bg-background border border-border/50 rounded-lg p-4 overflow-x-auto">
                   <code className="text-sm font-mono text-primary">{currentControl.cliCheck}</code>
@@ -220,7 +222,7 @@ const GuidedAudit = () => {
             <section className="bg-severity-low/10 border border-severity-low/20 rounded-lg p-4">
               <h3 className="text-sm font-semibold text-foreground flex items-center gap-2 mb-2">
                 <CheckCircle2 className="h-4 w-4 text-severity-low" />
-                Expected Secure Configuration
+                {t.guided.expectedConfig}
               </h3>
               <p className="text-sm text-muted-foreground">{currentControl.expectedConfig}</p>
             </section>
@@ -229,7 +231,7 @@ const GuidedAudit = () => {
             <section>
               <h3 className="text-sm font-semibold text-foreground flex items-center gap-2 mb-3">
                 <XCircle className="h-4 w-4 text-severity-high" />
-                Common Misconfigurations
+                {t.guided.commonMisconfigs}
               </h3>
               <ul className="space-y-2">
                 {currentControl.commonMisconfigs.map((misconfig, index) => (
@@ -245,7 +247,7 @@ const GuidedAudit = () => {
             <section className="bg-severity-medium/10 border border-severity-medium/20 rounded-lg p-4">
               <h3 className="text-sm font-semibold text-foreground flex items-center gap-2 mb-2">
                 <Lightbulb className="h-4 w-4 text-severity-medium" />
-                Hardening Hint
+                {t.guided.hardeningHint}
               </h3>
               <p className="text-sm text-muted-foreground">{currentControl.fixHint}</p>
             </section>
@@ -261,13 +263,13 @@ const GuidedAudit = () => {
             className="gap-2"
           >
             <ChevronLeft className="h-4 w-4" />
-            Previous
+            {t.guided.previous}
           </Button>
 
           <Link to="/">
             <Button variant="ghost" size="sm" className="gap-2">
               <Home className="h-4 w-4" />
-              Exit to Controls
+              {t.guided.exitToControls}
             </Button>
           </Link>
 
@@ -276,7 +278,7 @@ const GuidedAudit = () => {
             disabled={currentIndex === totalControls - 1}
             className="gap-2"
           >
-            Next
+            {t.guided.next}
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
