@@ -29,6 +29,7 @@ export const hi: Translations = {
     awareness: 'जागरूकता',
     faq: 'सामान्य प्रश्न',
     cliCommands: 'CLI कमांड',
+    glossary: 'शब्दावली',
     cloudSecurity: 'क्लाउड सुरक्षा',
     auditGuidancePortal: 'ऑडिट मार्गदर्शन पोर्टल',
   },
@@ -191,5 +192,30 @@ export const hi: Translations = {
     noResults: 'कोई मेल खाने वाले कमांड नहीं मिले।',
     copied: 'कमांड क्लिपबोर्ड में कॉपी हो गया!',
     copyFailed: 'कमांड कॉपी करने में विफल',
+  },
+
+  // Glossary
+  glossary: {
+    title: 'सुरक्षा शब्दावली',
+    subtitle: 'नियंत्रण और FAQ के क्रॉस-रेफरेंस के साथ क्लाउड सुरक्षा शब्द, संक्षिप्त रूप और परिभाषाएं।',
+    searchPlaceholder: 'शब्द, संक्षिप्त रूप या परिभाषाएं खोजें...',
+    categories: {
+      all: 'सभी शब्द',
+      identity: 'पहचान और पहुंच',
+      network: 'नेटवर्क सुरक्षा',
+      storage: 'स्टोरेज और डेटा',
+      compute: 'कंप्यूट और कंटेनर',
+      compliance: 'अनुपालन और फ्रेमवर्क',
+      general: 'सामान्य सुरक्षा',
+    },
+    termsFound: 'शब्द मिले',
+    noResults: 'कोई मेल खाने वाले शब्द नहीं मिले।',
+    relatedTerms: 'संबंधित शब्द',
+    relatedControls: 'संबंधित नियंत्रण',
+    relatedFAQs: 'संबंधित FAQ',
+    usedIn: 'में उपयोग किया गया',
+    alsoKnownAs: 'इसे भी कहते हैं',
+    acronymFor: 'का संक्षिप्त रूप',
+    jumpToLetter: 'पर जाएं',
   },
 };

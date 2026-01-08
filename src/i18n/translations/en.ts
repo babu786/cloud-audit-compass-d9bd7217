@@ -27,6 +27,7 @@ export const en = {
     awareness: 'Awareness',
     faq: 'FAQ',
     cliCommands: 'CLI Commands',
+    glossary: 'Glossary',
     cloudSecurity: 'Cloud Security',
     auditGuidancePortal: 'Audit Guidance Portal',
   },
@@ -189,6 +190,31 @@ export const en = {
     noResults: 'No matching commands found.',
     copied: 'Command copied to clipboard!',
     copyFailed: 'Failed to copy command',
+  },
+
+  // Glossary
+  glossary: {
+    title: 'Security Glossary',
+    subtitle: 'Cloud security terms, acronyms, and definitions with cross-references to controls and FAQ.',
+    searchPlaceholder: 'Search terms, acronyms, or definitions...',
+    categories: {
+      all: 'All Terms',
+      identity: 'Identity & Access',
+      network: 'Network Security',
+      storage: 'Storage & Data',
+      compute: 'Compute & Containers',
+      compliance: 'Compliance & Frameworks',
+      general: 'General Security',
+    },
+    termsFound: 'terms found',
+    noResults: 'No matching terms found.',
+    relatedTerms: 'Related Terms',
+    relatedControls: 'Related Controls',
+    relatedFAQs: 'Related FAQs',
+    usedIn: 'Used in',
+    alsoKnownAs: 'Also known as',
+    acronymFor: 'Acronym for',
+    jumpToLetter: 'Jump to',
   },
 };
 
