@@ -48,9 +48,9 @@ export function QuizQuestion({
           className="space-y-3"
         >
           {options.map((option, index) => {
-            const value = index.toString();
+            const value = option;
             const isSelected = selectedAnswer === value;
-            const isCorrectOption = value === correctAnswer;
+            const isCorrectOption = option === correctAnswer;
 
             return (
               <div
