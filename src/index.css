@@ -154,7 +154,7 @@
   }
 
   html {
-    /* Theme handled by next-themes */
+    scroll-behavior: smooth;
   }
 
   /* Smooth theme transitions - only for colors that need it */

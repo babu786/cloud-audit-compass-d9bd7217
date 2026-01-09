@@ -27,7 +27,7 @@ export function LessonList({ lessons, lessonProgress, currentLessonId }: LessonL
           {completedLessonIds.size} / {lessons.length} {t.courses?.completed || 'completed'}
         </p>
       </div>
-      <ScrollArea className="h-[calc(100vh-300px)]">
+      <ScrollArea className="h-[calc(100vh-300px)] min-h-[200px]">
         <div className="p-2">
           {lessons.map((lesson, index) => {
             const isCompleted = completedLessonIds.has(lesson.id);
