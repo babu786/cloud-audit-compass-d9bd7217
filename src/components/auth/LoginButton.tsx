@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
-import { useUserAuth } from '@/contexts/UserAuthContext';
+import { useFirebaseAuth } from '@/contexts/FirebaseAuthContext';
 import { LogIn } from 'lucide-react';
 import { toast } from 'sonner';
 
 export function LoginButton() {
-  const { signInWithGoogle, loading } = useUserAuth();
+  const { signInWithGoogle, loading } = useFirebaseAuth();
 
   const handleLogin = async () => {
     try {

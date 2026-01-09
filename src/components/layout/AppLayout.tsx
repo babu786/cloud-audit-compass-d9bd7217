@@ -8,7 +8,7 @@ import { MobileNav } from '@/components/layout/MobileNav';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useTheme } from 'next-themes';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
-import { useUserAuth } from '@/contexts/UserAuthContext';
+import { useFirebaseAuth } from '@/contexts/FirebaseAuthContext';
 import { LoginButton } from '@/components/auth/LoginButton';
 import { UserMenu } from '@/components/auth/UserMenu';
 import logoLight from '@/assets/logo-light.png';
@@ -23,7 +23,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   const { t } = useLanguage();
   const { resolvedTheme } = useTheme();
   const { isAdmin } = useAdminAuth();
-  const { user, loading: userLoading } = useUserAuth();
+  const { user, loading: userLoading } = useFirebaseAuth();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
