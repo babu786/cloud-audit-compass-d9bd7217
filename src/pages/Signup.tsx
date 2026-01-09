@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { toast } from 'sonner';
 import { Loader2, UserPlus } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
+import { PasswordStrengthIndicator } from '@/components/auth/PasswordStrengthIndicator';
 
 export default function Signup() {
   const { user, loading, signUp } = useFirebaseAuth();
@@ -117,6 +118,7 @@ export default function Signup() {
                   disabled={isSubmitting}
                   required
                 />
+                <PasswordStrengthIndicator password={password} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
