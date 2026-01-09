@@ -90,7 +90,7 @@ export function FirebaseAuthProvider({ children }: { children: React.ReactNode }
     }
 
     // Sync to Supabase profiles table
-    await supabase.from('profiles').upsert({
+    const { error: upsertError } = await supabase.from('profiles').upsert({
       id: firebaseUser.uid,
       email: profileData.email,
       full_name: profileData.full_name,
@@ -98,6 +98,10 @@ export function FirebaseAuthProvider({ children }: { children: React.ReactNode }
       created_at: profileData.created_at,
       updated_at: profileData.updated_at,
     });
+
+    if (upsertError) {
+      console.error('Error syncing profile to Supabase:', upsertError);
+    }
 
     setProfile(profileData);
   };

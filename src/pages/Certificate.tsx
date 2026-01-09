@@ -103,7 +103,7 @@ export default function Certificate() {
     );
   }
 
-  const userName = profile?.full_name || profile?.email || 'Student';
+  const userName = profile?.full_name || profile?.email || user?.displayName || user?.email || 'Student';
 
   return (
     <AppLayout>
