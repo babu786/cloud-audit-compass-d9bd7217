@@ -44,9 +44,9 @@ function AnimatedRoutes() {
     <div key={location.pathname} className="animate-page-enter">
       <Routes location={location}>
         <Route path="/" element={<Landing />} />
-        <Route path="/audit" element={<ProtectedRoute><Index /></ProtectedRoute>} />
-        <Route path="/guided" element={<ProtectedRoute><GuidedAudit /></ProtectedRoute>} />
-        <Route path="/cli" element={<ProtectedRoute><CLICommands /></ProtectedRoute>} />
+        <Route path="/audit" element={<Index />} />
+        <Route path="/guided" element={<GuidedAudit />} />
+        <Route path="/cli" element={<CLICommands />} />
         <Route path="/awareness" element={<Awareness />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/glossary" element={<Glossary />} />
