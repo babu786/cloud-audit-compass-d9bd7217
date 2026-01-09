@@ -20,14 +20,7 @@ export function MobileNav() {
         { path: '/guided', label: t.nav.guidedMode, icon: ClipboardCheck },
         { path: '/cli', label: t.nav.cliCommands, icon: Terminal },
       ]
-    : [
-        { path: '/', label: t.nav.auditControls, icon: Shield },
-        { path: '/guided', label: t.nav.guidedMode, icon: ClipboardCheck },
-        { path: '/awareness', label: t.nav.awareness, icon: BookOpen },
-        { path: '/glossary', label: t.nav.glossary, icon: FileText },
-        { path: '/faq', label: t.nav.faq, icon: HelpCircle },
-        { path: '/cli', label: t.nav.cliCommands, icon: Terminal },
-      ];
+    : [];
 
   return (
     <div className="lg:hidden">
