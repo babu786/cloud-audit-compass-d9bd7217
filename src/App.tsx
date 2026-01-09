@@ -12,6 +12,7 @@ import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { PWAUpdatePrompt } from "@/components/pwa/PWAUpdatePrompt";
 import { FloatingActions } from "@/components/ui/FloatingActions";
 import { KeyboardShortcutsModal } from "@/components/ui/KeyboardShortcutsModal";
+import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import GuidedAudit from "./pages/GuidedAudit";
 import Awareness from "./pages/Awareness";
@@ -36,11 +37,12 @@ function AnimatedRoutes() {
   return (
     <div key={location.pathname} className="animate-page-enter">
       <Routes location={location}>
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/audit" element={<ProtectedRoute><Index /></ProtectedRoute>} />
         <Route path="/guided" element={<ProtectedRoute><GuidedAudit /></ProtectedRoute>} />
+        <Route path="/cli" element={<ProtectedRoute><CLICommands /></ProtectedRoute>} />
         <Route path="/awareness" element={<Awareness />} />
         <Route path="/faq" element={<FAQ />} />
-        <Route path="/cli" element={<CLICommands />} />
         <Route path="/glossary" element={<Glossary />} />
         <Route path="/import" element={<ProtectedRoute><ImportControls /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />

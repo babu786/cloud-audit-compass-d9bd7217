@@ -14,14 +14,20 @@ export function MobileNav() {
   const { t } = useLanguage();
   const { user } = useFirebaseAuth();
 
-  const navItems = [
-    { path: '/', label: t.nav.auditControls, icon: Shield },
-    { path: '/guided', label: t.nav.guidedMode, icon: ClipboardCheck },
-    { path: '/awareness', label: t.nav.awareness, icon: BookOpen },
-    { path: '/faq', label: t.nav.faq, icon: HelpCircle },
-    { path: '/cli', label: t.nav.cliCommands, icon: Terminal },
-    { path: '/glossary', label: t.nav.glossary, icon: FileText },
-  ];
+  const navItems = user
+    ? [
+        { path: '/audit', label: t.nav.auditControls, icon: Shield },
+        { path: '/guided', label: t.nav.guidedMode, icon: ClipboardCheck },
+        { path: '/cli', label: t.nav.cliCommands, icon: Terminal },
+        { path: '/awareness', label: t.nav.awareness, icon: BookOpen },
+        { path: '/faq', label: t.nav.faq, icon: HelpCircle },
+        { path: '/glossary', label: t.nav.glossary, icon: FileText },
+      ]
+    : [
+        { path: '/awareness', label: t.nav.awareness, icon: BookOpen },
+        { path: '/faq', label: t.nav.faq, icon: HelpCircle },
+        { path: '/glossary', label: t.nav.glossary, icon: FileText },
+      ];
 
   return (
     <div className="lg:hidden">
