@@ -10,6 +10,7 @@ import {
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
+import { supabase } from '@/integrations/supabase/client';
 
 interface UserProfile {
   id: string;
@@ -39,22 +40,44 @@ export function FirebaseAuthProvider({ children }: { children: React.ReactNode }
   const [loading, setLoading] = useState(true);
 
   const fetchOrCreateProfile = async (firebaseUser: User): Promise<void> => {
+    // First check Supabase profiles table
+    const { data: supabaseProfile, error: supabaseError } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', firebaseUser.uid)
+      .maybeSingle();
+
+    if (supabaseProfile) {
+      setProfile({
+        id: firebaseUser.uid,
+        email: supabaseProfile.email || firebaseUser.email,
+        full_name: supabaseProfile.full_name || firebaseUser.displayName,
+        avatar_url: supabaseProfile.avatar_url || firebaseUser.photoURL,
+        created_at: supabaseProfile.created_at,
+        updated_at: supabaseProfile.updated_at,
+      });
+      return;
+    }
+
+    // If not in Supabase, check Firestore and sync
     const profileRef = doc(db, 'profiles', firebaseUser.uid);
     const profileSnap = await getDoc(profileRef);
 
+    const now = new Date().toISOString();
+    let profileData: UserProfile;
+
     if (profileSnap.exists()) {
       const data = profileSnap.data();
-      setProfile({
+      profileData = {
         id: firebaseUser.uid,
         email: data.email || firebaseUser.email,
         full_name: data.full_name || firebaseUser.displayName,
         avatar_url: data.avatar_url || firebaseUser.photoURL,
-        created_at: data.created_at,
-        updated_at: data.updated_at,
-      });
+        created_at: data.created_at || now,
+        updated_at: data.updated_at || now,
+      };
     } else {
-      const now = new Date().toISOString();
-      const newProfile: UserProfile = {
+      profileData = {
         id: firebaseUser.uid,
         email: firebaseUser.email,
         full_name: firebaseUser.displayName,
@@ -62,9 +85,21 @@ export function FirebaseAuthProvider({ children }: { children: React.ReactNode }
         created_at: now,
         updated_at: now,
       };
-      await setDoc(profileRef, newProfile);
-      setProfile(newProfile);
+      // Save to Firestore
+      await setDoc(profileRef, profileData);
     }
+
+    // Sync to Supabase profiles table
+    await supabase.from('profiles').upsert({
+      id: firebaseUser.uid,
+      email: profileData.email,
+      full_name: profileData.full_name,
+      avatar_url: profileData.avatar_url,
+      created_at: profileData.created_at,
+      updated_at: profileData.updated_at,
+    });
+
+    setProfile(profileData);
   };
 
   useEffect(() => {

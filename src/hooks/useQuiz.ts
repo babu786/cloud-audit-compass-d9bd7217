@@ -141,14 +141,23 @@ export function useCertificateByNumber(certificateNumber: string) {
   return useQuery({
     queryKey: ['certificate_verify', certificateNumber],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data: cert, error } = await supabase
         .from('certificates')
-        .select('*, courses(*), profiles!certificates_user_id_fkey(*)')
+        .select('*, courses(*)')
         .eq('certificate_number', certificateNumber)
         .maybeSingle();
 
       if (error) throw error;
-      return data;
+      if (!cert) return null;
+
+      // Fetch profile separately since FK constraint was removed
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', cert.user_id)
+        .maybeSingle();
+
+      return { ...cert, profiles: profile };
     },
     enabled: !!certificateNumber,
   });
