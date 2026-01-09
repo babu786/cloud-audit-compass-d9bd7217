@@ -7,13 +7,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useUserAuth } from '@/contexts/UserAuthContext';
+import { useFirebaseAuth } from '@/contexts/FirebaseAuthContext';
 import { LogOut, User } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 
 export function UserMenu() {
-  const { user, profile, signOut } = useUserAuth();
+  const { user, profile, signOut } = useFirebaseAuth();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {

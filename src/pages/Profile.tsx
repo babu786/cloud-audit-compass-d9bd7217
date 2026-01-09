@@ -1,4 +1,4 @@
-import { useUserAuth } from '@/contexts/UserAuthContext';
+import { useFirebaseAuth } from '@/contexts/FirebaseAuthContext';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,7 +7,7 @@ import { Navigate } from 'react-router-dom';
 import { Mail, Calendar, Shield } from 'lucide-react';
 
 export default function Profile() {
-  const { user, profile, loading, signOut } = useUserAuth();
+  const { user, profile, loading, signOut } = useFirebaseAuth();
 
   if (loading) {
     return (

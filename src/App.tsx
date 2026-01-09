@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import { AdminAuthProvider } from "@/contexts/AdminAuthContext";
-import { UserAuthProvider } from "@/contexts/UserAuthContext";
+import { FirebaseAuthProvider } from "@/contexts/FirebaseAuthContext";
 import { OfflineIndicator } from "@/components/pwa/OfflineIndicator";
 import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { PWAUpdatePrompt } from "@/components/pwa/PWAUpdatePrompt";
@@ -53,7 +53,7 @@ const App = () => (
       <LanguageProvider>
         <AdminAuthProvider>
           <BrowserRouter>
-            <UserAuthProvider>
+            <FirebaseAuthProvider>
               <TooltipProvider>
                 <Toaster />
                 <Sonner />
@@ -64,7 +64,7 @@ const App = () => (
                 <KeyboardShortcutsModal />
                 <AnimatedRoutes />
               </TooltipProvider>
-            </UserAuthProvider>
+            </FirebaseAuthProvider>
           </BrowserRouter>
         </AdminAuthProvider>
       </LanguageProvider>
