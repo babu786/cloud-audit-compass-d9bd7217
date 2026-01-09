@@ -3,7 +3,6 @@ import { Newspaper, AlertTriangle, BookOpen, Lightbulb, Plus, LogOut, Pencil, Tr
 import { AppLayout } from '@/components/layout/AppLayout';
 import { AwarenessCard } from '@/components/awareness/AwarenessCard';
 import { AwarenessModal } from '@/components/awareness/AwarenessModal';
-import { AdminLoginModal } from '@/components/admin/AdminLoginModal';
 import { AddAwarenessModal } from '@/components/admin/AddAwarenessModal';
 import { EditAwarenessModal } from '@/components/admin/EditAwarenessModal';
 import { DeleteConfirmModal } from '@/components/admin/DeleteConfirmModal';
@@ -11,13 +10,14 @@ import { awarenessArticles as defaultArticles, AwarenessArticle } from '@/data/a
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useAdminAuth } from '@/hooks/useAdminAuth';
 
 const Awareness = () => {
   const { t } = useLanguage();
+  const { isAdmin, openLoginModal, logout } = useAdminAuth();
+  
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedArticle, setSelectedArticle] = useState<AwarenessArticle | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -34,9 +34,6 @@ const Awareness = () => {
   ] as const;
 
   useEffect(() => {
-    const adminStatus = sessionStorage.getItem('isAdmin') === 'true';
-    setIsAdmin(adminStatus);
-    
     // Load any saved articles from localStorage
     const savedArticles = localStorage.getItem('awarenessArticles');
     if (savedArticles) {
@@ -66,11 +63,6 @@ const Awareness = () => {
     localStorage.setItem('awarenessArticles', JSON.stringify(newArticles));
     setArticleToDelete(null);
     setShowDeleteModal(false);
-  };
-
-  const handleLogout = () => {
-    sessionStorage.removeItem('isAdmin');
-    setIsAdmin(false);
   };
 
   const openEditModal = (article: AwarenessArticle, e: React.MouseEvent) => {
@@ -109,13 +101,13 @@ const Awareness = () => {
                   <Plus className="h-4 w-4 mr-1" />
                   {t.awareness.addArticle}
                 </Button>
-                <Button variant="outline" size="sm" onClick={handleLogout}>
+                <Button variant="outline" size="sm" onClick={logout}>
                   <LogOut className="h-4 w-4 mr-1" />
                   {t.awareness.logout}
                 </Button>
               </>
             ) : (
-              <Button variant="outline" size="sm" onClick={() => setShowLoginModal(true)}>
+              <Button variant="outline" size="sm" onClick={openLoginModal}>
                 {t.awareness.adminLogin}
               </Button>
             )}
@@ -188,16 +180,6 @@ const Awareness = () => {
           article={selectedArticle}
           open={!!selectedArticle}
           onClose={() => setSelectedArticle(null)}
-        />
-
-        {/* Admin Login Modal */}
-        <AdminLoginModal
-          open={showLoginModal}
-          onClose={() => setShowLoginModal(false)}
-          onSuccess={() => {
-            setIsAdmin(true);
-            setShowLoginModal(false);
-          }}
         />
 
         {/* Add Article Modal */}

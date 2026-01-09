@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,42 +10,16 @@ import { Download, FileText, FileJson, Upload, Trash2, CheckCircle, Lock, LogOut
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { AuditControl } from '@/data/auditContent';
-import { AdminLoginModal } from '@/components/admin/AdminLoginModal';
+import { useAdminAuth } from '@/hooks/useAdminAuth';
 
 export default function ImportControls() {
   const { t } = useLanguage();
   const { toast } = useToast();
   const { addControls, importedControls, clearAllImported, importedCount } = useImportedControls();
+  const { isAdmin, openLoginModal, logout } = useAdminAuth();
   
   const [parseResult, setParseResult] = useState<ParseResult | null>(null);
   const [fileType, setFileType] = useState<'csv' | 'json' | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-
-  useEffect(() => {
-    const adminToken = sessionStorage.getItem('isAdmin');
-    setIsAdmin(!!adminToken);
-  }, []);
-
-  const handleLoginSuccess = () => {
-    setIsAdmin(true);
-    setShowLoginModal(false);
-    toast({
-      title: "Login Successful",
-      description: "You can now import controls.",
-    });
-  };
-
-  const handleLogout = () => {
-    sessionStorage.removeItem('isAdmin');
-    setIsAdmin(false);
-    setParseResult(null);
-    setFileType(null);
-    toast({
-      title: "Logged Out",
-      description: "You have been logged out.",
-    });
-  };
 
   const handleFileSelect = useCallback((file: File, content: string) => {
     const isJSON = file.name.endsWith('.json');
@@ -90,6 +64,16 @@ export default function ImportControls() {
     });
   }, [clearAllImported, toast]);
 
+  const handleLogout = () => {
+    logout();
+    setParseResult(null);
+    setFileType(null);
+    toast({
+      title: "Logged Out",
+      description: "You have been logged out.",
+    });
+  };
+
   // Show login required view if not admin
   if (!isAdmin) {
     return (
@@ -111,18 +95,12 @@ export default function ImportControls() {
               <p className="text-muted-foreground mb-6 max-w-md">
                 You need to login as an administrator to import controls. This helps maintain data integrity and security.
               </p>
-              <Button onClick={() => setShowLoginModal(true)} size="lg" className="gap-2">
+              <Button onClick={openLoginModal} size="lg" className="gap-2">
                 <Lock className="h-4 w-4" />
                 Login to Continue
               </Button>
             </CardContent>
           </Card>
-
-          <AdminLoginModal 
-            open={showLoginModal} 
-            onClose={() => setShowLoginModal(false)} 
-            onSuccess={handleLoginSuccess}
-          />
         </div>
       </AppLayout>
     );
