@@ -6,20 +6,28 @@ import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useFirebaseAuth } from '@/contexts/FirebaseAuthContext';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { t } = useLanguage();
+  const { user } = useFirebaseAuth();
 
-  const navItems = [
-    { path: '/', label: t.nav.auditControls, icon: Shield },
-    { path: '/guided', label: t.nav.guidedMode, icon: ClipboardCheck },
-    { path: '/awareness', label: t.nav.awareness, icon: BookOpen },
-    { path: '/glossary', label: t.nav.glossary, icon: FileText },
-    { path: '/faq', label: t.nav.faq, icon: HelpCircle },
-    { path: '/cli', label: t.nav.cliCommands, icon: Terminal },
-  ];
+  const navItems = user
+    ? [
+        { path: '/', label: t.nav.auditControls, icon: Shield },
+        { path: '/guided', label: t.nav.guidedMode, icon: ClipboardCheck },
+        { path: '/cli', label: t.nav.cliCommands, icon: Terminal },
+      ]
+    : [
+        { path: '/', label: t.nav.auditControls, icon: Shield },
+        { path: '/guided', label: t.nav.guidedMode, icon: ClipboardCheck },
+        { path: '/awareness', label: t.nav.awareness, icon: BookOpen },
+        { path: '/glossary', label: t.nav.glossary, icon: FileText },
+        { path: '/faq', label: t.nav.faq, icon: HelpCircle },
+        { path: '/cli', label: t.nav.cliCommands, icon: Terminal },
+      ];
 
   return (
     <div className="lg:hidden">
