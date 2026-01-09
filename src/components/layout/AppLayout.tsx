@@ -40,7 +40,14 @@ export function AppLayout({ children }: AppLayoutProps) {
         { name: t.nav.cliCommands, href: '/cli', icon: Terminal },
         ...(isAdmin ? [{ name: 'Dashboard', href: '/admin', icon: LayoutDashboard }] : []),
       ]
-    : [];
+    : [
+        { name: t.nav.auditControls, href: '/', icon: Shield },
+        { name: t.nav.guidedMode, href: '/guided', icon: Compass },
+        { name: t.nav.awareness, href: '/awareness', icon: BookOpen },
+        { name: t.nav.faq, href: '/faq', icon: HelpCircle },
+        { name: t.nav.cliCommands, href: '/cli', icon: Terminal },
+        { name: t.nav.glossary, href: '/glossary', icon: BookText },
+      ];
 
   return (
     <div className="min-h-screen bg-background">
