@@ -51,7 +51,7 @@ export const CertificateView = forwardRef<HTMLDivElement, CertificateViewProps>(
           {/* Header */}
           <div className="flex items-center gap-3">
             <img src={currentLogo} alt="Logo" className="h-10" />
-            <span className="text-xl font-bold">Cloud Security Hub</span>
+            <span className="text-xl font-bold">BUGnBULL</span>
           </div>
 
           {/* Title */}
