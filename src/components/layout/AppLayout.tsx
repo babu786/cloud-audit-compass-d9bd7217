@@ -74,7 +74,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2">
             <nav className="flex items-center gap-1">
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href;
@@ -83,31 +83,29 @@ export function AppLayout({ children }: AppLayoutProps) {
                     key={item.href}
                     to={item.href}
                     className={cn(
-                      "relative flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
+                      "relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
                       isActive
-                        ? "bg-primary/15 text-primary border-b-2 border-primary"
+                        ? "bg-primary/10 text-primary glow-sm"
                         : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                     )}
                   >
                     <item.icon className={cn(
-                      "h-4 w-4 flex-shrink-0",
-                      !isActive && "group-hover:scale-110 transition-transform duration-200"
+                      "h-4 w-4 transition-transform duration-200",
+                      !isActive && "group-hover:scale-110 group-hover:rotate-3"
                     )} />
-                    <span>{item.name}</span>
+                    <span className="relative">
+                      {item.name}
+                      {!isActive && (
+                        <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full" />
+                      )}
+                    </span>
                   </Link>
                 );
               })}
             </nav>
-            
-            {/* Separator */}
-            <div className="h-6 w-px bg-border" />
-            
-            {/* Utility buttons */}
-            <div className="flex items-center gap-2">
-              <LanguageToggle />
-              <ThemeToggle />
-              {!userLoading && (user ? <UserMenu /> : <LoginButton />)}
-            </div>
+            <LanguageToggle />
+            <ThemeToggle />
+            {!userLoading && (user ? <UserMenu /> : <LoginButton />)}
           </div>
 
           {/* Mobile Navigation */}
