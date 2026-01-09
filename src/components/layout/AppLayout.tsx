@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Shield, BookOpen, Compass, HelpCircle, Terminal, BookText, Upload, LayoutDashboard, Home } from 'lucide-react';
+import { Shield, BookOpen, Compass, HelpCircle, Terminal, BookText, Upload, LayoutDashboard, Home, GraduationCap, BookMarked } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
@@ -39,6 +39,8 @@ export function AppLayout({ children }: AppLayoutProps) {
         { name: t.nav.auditControls, href: '/audit', icon: Shield },
         { name: t.nav.guidedMode, href: '/guided', icon: Compass },
         { name: t.nav.cliCommands, href: '/cli', icon: Terminal },
+        { name: 'Courses', href: '/courses', icon: GraduationCap },
+        { name: 'My Learning', href: '/my-learning', icon: BookMarked },
         { name: t.nav.awareness, href: '/awareness', icon: BookOpen },
         { name: t.nav.faq, href: '/faq', icon: HelpCircle },
         { name: t.nav.glossary, href: '/glossary', icon: BookText },

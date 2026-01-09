@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Shield, BookOpen, FileText, HelpCircle, Terminal, ClipboardCheck, Home } from 'lucide-react';
+import { Menu, X, Shield, BookOpen, FileText, HelpCircle, Terminal, ClipboardCheck, Home, GraduationCap, BookMarked } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
@@ -20,6 +20,8 @@ export function MobileNav() {
         { path: '/audit', label: t.nav.auditControls, icon: Shield },
         { path: '/guided', label: t.nav.guidedMode, icon: ClipboardCheck },
         { path: '/cli', label: t.nav.cliCommands, icon: Terminal },
+        { path: '/courses', label: 'Courses', icon: GraduationCap },
+        { path: '/my-learning', label: 'My Learning', icon: BookMarked },
         { path: '/awareness', label: t.nav.awareness, icon: BookOpen },
         { path: '/faq', label: t.nav.faq, icon: HelpCircle },
         { path: '/glossary', label: t.nav.glossary, icon: FileText },

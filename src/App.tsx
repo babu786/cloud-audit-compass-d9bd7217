@@ -27,6 +27,12 @@ import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import VerifyEmail from "./pages/VerifyEmail";
 import NotFound from "./pages/NotFound";
+import Courses from "./pages/Courses";
+import CourseDetail from "./pages/CourseDetail";
+import LessonView from "./pages/LessonView";
+import QuizView from "./pages/QuizView";
+import MyLearning from "./pages/MyLearning";
+import Certificate from "./pages/Certificate";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -47,6 +53,12 @@ function AnimatedRoutes() {
         <Route path="/import" element={<ProtectedRoute><ImportControls /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
+        <Route path="/courses/:id" element={<ProtectedRoute><CourseDetail /></ProtectedRoute>} />
+        <Route path="/courses/:courseId/lesson/:lessonId" element={<ProtectedRoute><LessonView /></ProtectedRoute>} />
+        <Route path="/courses/:courseId/quiz" element={<ProtectedRoute><QuizView /></ProtectedRoute>} />
+        <Route path="/my-learning" element={<ProtectedRoute><MyLearning /></ProtectedRoute>} />
+        <Route path="/certificate/:id" element={<ProtectedRoute><Certificate /></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
