@@ -22,6 +22,7 @@ export const en = {
 
   // Navigation
   nav: {
+    home: 'Home',
     auditControls: 'Audit Controls',
     guidedMode: 'Guided Mode',
     awareness: 'Awareness',

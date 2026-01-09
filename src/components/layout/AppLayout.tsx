@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Shield, BookOpen, Compass, HelpCircle, Terminal, BookText, Upload, LayoutDashboard } from 'lucide-react';
+import { Shield, BookOpen, Compass, HelpCircle, Terminal, BookText, Upload, LayoutDashboard, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
@@ -35,6 +35,7 @@ export function AppLayout({ children }: AppLayoutProps) {
 
   const navigation = user
     ? [
+        { name: t.nav.home, href: '/', icon: Home },
         { name: t.nav.auditControls, href: '/audit', icon: Shield },
         { name: t.nav.guidedMode, href: '/guided', icon: Compass },
         { name: t.nav.cliCommands, href: '/cli', icon: Terminal },
@@ -44,6 +45,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         ...(isAdmin ? [{ name: 'Dashboard', href: '/admin', icon: LayoutDashboard }] : []),
       ]
     : [
+        { name: t.nav.home, href: '/', icon: Home },
         { name: t.nav.awareness, href: '/awareness', icon: BookOpen },
         { name: t.nav.faq, href: '/faq', icon: HelpCircle },
         { name: t.nav.glossary, href: '/glossary', icon: BookText },
