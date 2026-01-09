@@ -305,7 +305,7 @@ const Index = () => {
             // List view
             filteredControls.map((control, index) => (
               <div 
-                key={control.id}
+                key={`${control.id}-${index}`}
                 className="animate-fade-in"
                 style={{ animationDelay: `${Math.min(index * 50, 500)}ms` }}
               >
