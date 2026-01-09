@@ -5,14 +5,18 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 import { Loader2, LogIn } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
+import { auth } from '@/lib/firebase';
+import { browserLocalPersistence, browserSessionPersistence, setPersistence } from 'firebase/auth';
 
 export default function Login() {
   const { user, loading, signIn } = useFirebaseAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (loading) {
@@ -39,6 +43,8 @@ export default function Login() {
 
     setIsSubmitting(true);
     try {
+      // Set persistence based on "Remember me" checkbox
+      await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
       await signIn(email, password);
       toast.success('Logged in successfully!');
     } catch (error: any) {
@@ -86,6 +92,19 @@ export default function Login() {
                   disabled={isSubmitting}
                   required
                 />
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="rememberMe"
+                    checked={rememberMe}
+                    onCheckedChange={(checked) => setRememberMe(checked === true)}
+                    disabled={isSubmitting}
+                  />
+                  <Label htmlFor="rememberMe" className="text-sm font-normal cursor-pointer">
+                    Remember me
+                  </Label>
+                </div>
                 <Link 
                   to="/forgot-password" 
                   className="text-sm text-primary hover:underline"
