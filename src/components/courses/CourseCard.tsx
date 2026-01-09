@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Clock, BookOpen, Award, ArrowRight } from 'lucide-react';
+import { Clock, BookOpen, Award, ArrowRight, Lock } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,7 @@ import type { Course, Enrollment } from '@/hooks/useCourses';
 interface CourseCardProps {
   course: Course;
   enrollment?: Enrollment | null;
+  isLoggedIn?: boolean;
 }
 
 const categoryColors: Record<string, string> = {
@@ -25,7 +26,7 @@ const difficultyColors: Record<string, string> = {
   Advanced: 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
 };
 
-export function CourseCard({ course, enrollment }: CourseCardProps) {
+export function CourseCard({ course, enrollment, isLoggedIn = true }: CourseCardProps) {
   const { t } = useLanguage();
   const isEnrolled = !!enrollment;
   const progress = enrollment?.progress_percent || 0;
@@ -74,21 +75,30 @@ export function CourseCard({ course, enrollment }: CourseCardProps) {
       </CardContent>
 
       <CardFooter className="pt-4">
-        <Link to={`/courses/${course.id}`} className="w-full">
-          <Button className="w-full gap-2" variant={isEnrolled ? 'default' : 'outline'}>
-            {isEnrolled ? (
-              <>
-                <BookOpen className="h-4 w-4" />
-                {t.courses?.continueLearning || 'Continue Learning'}
-              </>
-            ) : (
-              <>
-                {t.courses?.viewCourse || 'View Course'}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </>
-            )}
-          </Button>
-        </Link>
+        {!isLoggedIn ? (
+          <Link to={`/login?redirect=/courses/${course.id}`} className="w-full">
+            <Button className="w-full gap-2" variant="default">
+              <Lock className="h-4 w-4" />
+              Login to Enroll
+            </Button>
+          </Link>
+        ) : (
+          <Link to={`/courses/${course.id}`} className="w-full">
+            <Button className="w-full gap-2" variant={isEnrolled ? 'default' : 'outline'}>
+              {isEnrolled ? (
+                <>
+                  <BookOpen className="h-4 w-4" />
+                  {t.courses?.continueLearning || 'Continue Learning'}
+                </>
+              ) : (
+                <>
+                  {t.courses?.viewCourse || 'View Course'}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </>
+              )}
+            </Button>
+          </Link>
+        )}
       </CardFooter>
     </Card>
   );

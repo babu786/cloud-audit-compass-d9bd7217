@@ -5,9 +5,11 @@ import { CourseCard } from '@/components/courses/CourseCard';
 import { CourseFilters } from '@/components/courses/CourseFilters';
 import { useCourses, useEnrollments } from '@/hooks/useCourses';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useFirebaseAuth } from '@/contexts/FirebaseAuthContext';
 
 export default function Courses() {
   const { t } = useLanguage();
+  const { user } = useFirebaseAuth();
   const [category, setCategory] = useState('all');
   const [difficulty, setDifficulty] = useState('all');
 
@@ -75,6 +77,7 @@ export default function Courses() {
                 key={course.id}
                 course={course}
                 enrollment={enrollmentMap.get(course.id)}
+                isLoggedIn={!!user}
               />
             ))}
           </div>

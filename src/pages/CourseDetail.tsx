@@ -7,6 +7,7 @@ import {
   CheckCircle,
   ArrowRight,
   Loader2,
+  Lock,
 } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { Button } from '@/components/ui/button';
@@ -22,11 +23,14 @@ import {
 } from '@/hooks/useCourses';
 import { useQuiz, useCertificate, useQuizAttempts } from '@/hooks/useQuiz';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useFirebaseAuth } from '@/contexts/FirebaseAuthContext';
 import { toast } from 'sonner';
 
 export default function CourseDetail() {
   const { id } = useParams<{ id: string }>();
   const { t } = useLanguage();
+  const { user } = useFirebaseAuth();
+  const isGuest = !user;
 
   const { data: course, isLoading: courseLoading } = useCourse(id!);
   const { data: lessons, isLoading: lessonsLoading } = useLessons(id!);
@@ -129,20 +133,23 @@ export default function CourseDetail() {
                     const isCompleted = lessonProgress?.some(
                       (lp) => lp.lesson_id === lesson.id && lp.is_completed
                     );
+                    const canAccess = !isGuest && enrollment;
 
                     return (
                       <Link
                         key={lesson.id}
-                        to={enrollment ? `/courses/${id}/lesson/${lesson.id}` : '#'}
+                        to={canAccess ? `/courses/${id}/lesson/${lesson.id}` : '#'}
                         className={`flex items-center gap-4 rounded-lg border p-4 transition-colors ${
-                          enrollment
+                          canAccess
                             ? 'hover:bg-muted/50'
                             : 'cursor-not-allowed opacity-60'
                         }`}
-                        onClick={(e) => !enrollment && e.preventDefault()}
+                        onClick={(e) => !canAccess && e.preventDefault()}
                       >
                         <div className="flex-shrink-0">
-                          {isCompleted ? (
+                          {isGuest ? (
+                            <Lock className="h-5 w-5 text-muted-foreground" />
+                          ) : isCompleted ? (
                             <CheckCircle className="h-6 w-6 text-green-500" />
                           ) : (
                             <div className="flex h-6 w-6 items-center justify-center rounded-full border-2 text-xs">
@@ -156,7 +163,7 @@ export default function CourseDetail() {
                             {lesson.duration_minutes} {t.courses?.minutes || 'min'}
                           </p>
                         </div>
-                        {enrollment && (
+                        {canAccess && (
                           <ArrowRight className="h-4 w-4 text-muted-foreground" />
                         )}
                       </Link>
@@ -172,7 +179,29 @@ export default function CourseDetail() {
             {/* Progress Card */}
             <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
               <CardContent className="pt-6">
-                {enrollment ? (
+                {isGuest ? (
+                  <div className="space-y-4 text-center">
+                    <div className="p-4 bg-primary/5 rounded-lg border border-primary/20">
+                      <Lock className="h-8 w-8 mx-auto text-primary mb-2" />
+                      <p className="font-medium">Create a free account to enroll</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Track progress and earn certificates
+                      </p>
+                    </div>
+                    <Link to={`/login?redirect=/courses/${id}`}>
+                      <Button className="w-full gap-2" size="lg">
+                        <Play className="h-4 w-4" />
+                        Login to Enroll
+                      </Button>
+                    </Link>
+                    <p className="text-xs text-muted-foreground">
+                      Don't have an account?{' '}
+                      <Link to="/signup" className="text-primary hover:underline">
+                        Sign up free
+                      </Link>
+                    </p>
+                  </div>
+                ) : enrollment ? (
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
