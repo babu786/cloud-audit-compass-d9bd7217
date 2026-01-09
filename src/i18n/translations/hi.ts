@@ -24,6 +24,7 @@ export const hi: Translations = {
 
   // Navigation
   nav: {
+    home: 'होम',
     auditControls: 'ऑडिट नियंत्रण',
     guidedMode: 'मार्गदर्शित मोड',
     awareness: 'जागरूकता',
