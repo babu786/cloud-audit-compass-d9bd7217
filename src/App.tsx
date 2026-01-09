@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import { AdminAuthProvider } from "@/contexts/AdminAuthContext";
+import { UserAuthProvider } from "@/contexts/UserAuthContext";
 import { OfflineIndicator } from "@/components/pwa/OfflineIndicator";
 import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { PWAUpdatePrompt } from "@/components/pwa/PWAUpdatePrompt";
@@ -19,6 +20,7 @@ import CLICommands from "./pages/CLICommands";
 import Glossary from "./pages/Glossary";
 import ImportControls from "./pages/ImportControls";
 import AdminDashboard from "./pages/AdminDashboard";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +39,7 @@ function AnimatedRoutes() {
         <Route path="/glossary" element={<Glossary />} />
         <Route path="/import" element={<ImportControls />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/profile" element={<Profile />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -49,18 +52,20 @@ const App = () => (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <LanguageProvider>
         <AdminAuthProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <OfflineIndicator />
-            <InstallPrompt />
-            <PWAUpdatePrompt />
-            <FloatingActions />
-            <KeyboardShortcutsModal />
-            <BrowserRouter>
-              <AnimatedRoutes />
-            </BrowserRouter>
-          </TooltipProvider>
+          <BrowserRouter>
+            <UserAuthProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Sonner />
+                <OfflineIndicator />
+                <InstallPrompt />
+                <PWAUpdatePrompt />
+                <FloatingActions />
+                <KeyboardShortcutsModal />
+                <AnimatedRoutes />
+              </TooltipProvider>
+            </UserAuthProvider>
+          </BrowserRouter>
         </AdminAuthProvider>
       </LanguageProvider>
     </ThemeProvider>
