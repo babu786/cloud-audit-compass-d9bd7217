@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +13,17 @@ import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { PWAUpdatePrompt } from "@/components/pwa/PWAUpdatePrompt";
 import { FloatingActions } from "@/components/ui/FloatingActions";
 import { KeyboardShortcutsModal } from "@/components/ui/KeyboardShortcutsModal";
+
+// Scroll to top on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import GuidedAudit from "./pages/GuidedAudit";
@@ -76,6 +88,7 @@ const App = () => (
       <LanguageProvider>
         <AdminAuthProvider>
           <BrowserRouter>
+            <ScrollToTop />
             <FirebaseAuthProvider>
               <TooltipProvider>
                 <Toaster />
