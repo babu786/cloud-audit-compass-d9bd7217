@@ -1,12 +1,13 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Shield, BookOpen, Compass, HelpCircle, Terminal, BookText, Upload } from 'lucide-react';
+import { Shield, BookOpen, Compass, HelpCircle, Terminal, BookText, Upload, LayoutDashboard } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useTheme } from 'next-themes';
+import { useAdminAuth } from '@/hooks/useAdminAuth';
 import logoLight from '@/assets/logo-light.png';
 import logoDark from '@/assets/logo-dark.png';
 
@@ -18,6 +19,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
   const { t } = useLanguage();
   const { resolvedTheme } = useTheme();
+  const { isAdmin } = useAdminAuth();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export function AppLayout({ children }: AppLayoutProps) {
     { name: t.nav.faq, href: '/faq', icon: HelpCircle },
     { name: t.nav.cliCommands, href: '/cli', icon: Terminal },
     { name: t.nav.glossary, href: '/glossary', icon: BookText },
-    { name: 'Import', href: '/import', icon: Upload },
+    ...(isAdmin ? [{ name: 'Dashboard', href: '/admin', icon: LayoutDashboard }] : []),
   ];
 
   return (

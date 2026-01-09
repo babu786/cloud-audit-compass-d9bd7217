@@ -18,6 +18,7 @@ import FAQ from "./pages/FAQ";
 import CLICommands from "./pages/CLICommands";
 import Glossary from "./pages/Glossary";
 import ImportControls from "./pages/ImportControls";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ function AnimatedRoutes() {
         <Route path="/cli" element={<CLICommands />} />
         <Route path="/glossary" element={<Glossary />} />
         <Route path="/import" element={<ImportControls />} />
+        <Route path="/admin" element={<AdminDashboard />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
