@@ -86,6 +86,12 @@ export default function Login() {
                   disabled={isSubmitting}
                   required
                 />
+                <Link 
+                  to="/forgot-password" 
+                  className="text-sm text-primary hover:underline"
+                >
+                  Forgot password?
+                </Link>
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">

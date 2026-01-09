@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useFirebaseAuth } from '@/contexts/FirebaseAuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,6 +11,7 @@ import { AppLayout } from '@/components/layout/AppLayout';
 
 export default function Signup() {
   const { user, loading, signUp } = useFirebaseAuth();
+  const navigate = useNavigate();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -52,7 +53,8 @@ export default function Signup() {
     setIsSubmitting(true);
     try {
       await signUp(email, password, fullName);
-      toast.success('Account created successfully!');
+      toast.success('Account created! Please verify your email.');
+      navigate('/verify-email');
     } catch (error: any) {
       let message = 'Signup failed. Please try again.';
       if (error.code === 'auth/email-already-in-use') {
