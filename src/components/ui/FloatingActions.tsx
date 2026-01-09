@@ -26,8 +26,8 @@ export function FloatingActions() {
 
   return (
     <>
-      {/* Progress bar - positioned below header */}
-      <div className="fixed top-16 left-0 right-0 h-1 z-40 bg-background/50 backdrop-blur-sm">
+      {/* Progress bar - at very top of page */}
+      <div className="fixed top-0 left-0 right-0 h-1 z-50 bg-background/50 backdrop-blur-sm">
         <div 
           className="h-full bg-gradient-to-r from-primary via-primary to-primary/70 transition-all duration-150 ease-out"
           style={{ width: `${scrollProgress}%` }}
