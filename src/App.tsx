@@ -53,7 +53,7 @@ function AnimatedRoutes() {
         <Route path="/import" element={<ProtectedRoute><ImportControls /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
+        <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:id" element={<ProtectedRoute><CourseDetail /></ProtectedRoute>} />
         <Route path="/courses/:courseId/lesson/:lessonId" element={<ProtectedRoute><LessonView /></ProtectedRoute>} />
         <Route path="/courses/:courseId/quiz" element={<ProtectedRoute><QuizView /></ProtectedRoute>} />

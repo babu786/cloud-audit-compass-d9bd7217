@@ -31,6 +31,7 @@ export function MobileNav() {
         { path: '/audit', label: t.nav.auditControls, icon: Shield },
         { path: '/guided', label: t.nav.guidedMode, icon: ClipboardCheck },
         { path: '/cli', label: t.nav.cliCommands, icon: Terminal },
+        { path: '/courses', label: t.nav.courses, icon: GraduationCap },
         { path: '/awareness', label: t.nav.awareness, icon: BookOpen },
         { path: '/faq', label: t.nav.faq, icon: HelpCircle },
         { path: '/glossary', label: t.nav.glossary, icon: FileText },

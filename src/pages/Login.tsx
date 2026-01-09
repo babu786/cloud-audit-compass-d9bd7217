@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useFirebaseAuth } from '@/contexts/FirebaseAuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,10 +14,16 @@ import { browserLocalPersistence, browserSessionPersistence, setPersistence } fr
 
 export default function Login() {
   const { user, loading, signIn } = useFirebaseAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Get redirect URL from query params
+  const searchParams = new URLSearchParams(location.search);
+  const redirectTo = searchParams.get('redirect') || '/audit';
 
   if (loading) {
     return (
@@ -30,7 +36,7 @@ export default function Login() {
   }
 
   if (user) {
-    return <Navigate to="/audit" replace />;
+    return <Navigate to={redirectTo} replace />;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -47,6 +53,7 @@ export default function Login() {
       await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
       await signIn(email, password);
       toast.success('Logged in successfully!');
+      navigate(redirectTo);
     } catch (error: any) {
       const message = error.code === 'auth/invalid-credential' 
         ? 'Invalid email or password' 
