@@ -11,6 +11,7 @@ import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { useFirebaseAuth } from '@/contexts/FirebaseAuthContext';
 import { LoginButton } from '@/components/auth/LoginButton';
 import { UserMenu } from '@/components/auth/UserMenu';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import logoLight from '@/assets/logo-light.png';
 import logoDark from '@/assets/logo-dark.png';
 
@@ -35,22 +36,22 @@ export function AppLayout({ children }: AppLayoutProps) {
 
   const navigation = user
     ? [
-        { name: 'Home', href: '/', icon: Home },
-        { name: 'Audit', href: '/audit', icon: Shield },
-        { name: 'Guided', href: '/guided', icon: Compass },
-        { name: 'CLI', href: '/cli', icon: Terminal },
-        { name: 'Courses', href: '/courses', icon: GraduationCap },
-        { name: 'Learning', href: '/my-learning', icon: BookMarked },
-        { name: 'Awareness', href: '/awareness', icon: BookOpen },
-        { name: 'FAQ', href: '/faq', icon: HelpCircle },
-        { name: 'Glossary', href: '/glossary', icon: BookText },
-        ...(isAdmin ? [{ name: 'Admin', href: '/admin', icon: LayoutDashboard }] : []),
+        { name: t.nav.home, href: '/', icon: Home },
+        { name: t.nav.auditControls, href: '/audit', icon: Shield },
+        { name: t.nav.guidedMode, href: '/guided', icon: Compass },
+        { name: t.nav.cliCommands, href: '/cli', icon: Terminal },
+        { name: t.nav.courses, href: '/courses', icon: GraduationCap },
+        { name: t.nav.myLearning, href: '/my-learning', icon: BookMarked },
+        { name: t.nav.awareness, href: '/awareness', icon: BookOpen },
+        { name: t.nav.faq, href: '/faq', icon: HelpCircle },
+        { name: t.nav.glossary, href: '/glossary', icon: BookText },
+        ...(isAdmin ? [{ name: t.nav.admin, href: '/admin', icon: LayoutDashboard }] : []),
       ]
     : [
-        { name: 'Home', href: '/', icon: Home },
-        { name: 'Awareness', href: '/awareness', icon: BookOpen },
-        { name: 'FAQ', href: '/faq', icon: HelpCircle },
-        { name: 'Glossary', href: '/glossary', icon: BookText },
+        { name: t.nav.home, href: '/', icon: Home },
+        { name: t.nav.awareness, href: '/awareness', icon: BookOpen },
+        { name: t.nav.faq, href: '/faq', icon: HelpCircle },
+        { name: t.nav.glossary, href: '/glossary', icon: BookText },
       ];
 
   return (
@@ -74,32 +75,38 @@ export function AppLayout({ children }: AppLayoutProps) {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-2">
-            <nav className="flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-1">
+            <nav className="flex items-center gap-0.5">
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    className={cn(
-                      "relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 group whitespace-nowrap",
-                      isActive
-                        ? "bg-primary/10 text-primary glow-sm"
-                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                    )}
-                  >
-                    <item.icon className={cn(
-                      "h-4 w-4 flex-shrink-0 transition-transform duration-200",
-                      !isActive && "group-hover:scale-110 group-hover:rotate-3"
-                    )} />
-                    <span className="relative">
+                  <Tooltip key={item.href}>
+                    <TooltipTrigger asChild>
+                      <Link
+                        to={item.href}
+                        className={cn(
+                          "relative flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 group",
+                          isActive
+                            ? "bg-primary/10 text-primary glow-sm"
+                            : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                        )}
+                      >
+                        <item.icon className={cn(
+                          "h-4 w-4 flex-shrink-0 transition-transform duration-200",
+                          !isActive && "group-hover:scale-110 group-hover:rotate-3"
+                        )} />
+                        <span className="relative hidden xl:inline whitespace-nowrap">
+                          {item.name}
+                          {!isActive && (
+                            <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full" />
+                          )}
+                        </span>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent className="xl:hidden">
                       {item.name}
-                      {!isActive && (
-                        <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full" />
-                      )}
-                    </span>
-                  </Link>
+                    </TooltipContent>
+                  </Tooltip>
                 );
               })}
             </nav>
