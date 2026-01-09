@@ -5,7 +5,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   updateProfile,
-  signOut as firebaseSignOut 
+  signOut as firebaseSignOut,
+  sendEmailVerification
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
@@ -23,9 +24,11 @@ interface FirebaseAuthContextType {
   user: User | null;
   profile: UserProfile | null;
   loading: boolean;
+  emailVerified: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, fullName: string) => Promise<void>;
   signOut: () => Promise<void>;
+  resendVerificationEmail: () => Promise<void>;
 }
 
 const FirebaseAuthContext = createContext<FirebaseAuthContextType | undefined>(undefined);
@@ -91,6 +94,14 @@ export function FirebaseAuthProvider({ children }: { children: React.ReactNode }
   const signUp = async (email: string, password: string, fullName: string): Promise<void> => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(userCredential.user, { displayName: fullName });
+    // Send verification email after signup
+    await sendEmailVerification(userCredential.user);
+  };
+
+  const resendVerificationEmail = async (): Promise<void> => {
+    if (user && !user.emailVerified) {
+      await sendEmailVerification(user);
+    }
   };
 
   const signOut = async (): Promise<void> => {
@@ -105,9 +116,11 @@ export function FirebaseAuthProvider({ children }: { children: React.ReactNode }
         user,
         profile,
         loading,
+        emailVerified: user?.emailVerified ?? false,
         signIn,
         signUp,
         signOut,
+        resendVerificationEmail,
       }}
     >
       {children}

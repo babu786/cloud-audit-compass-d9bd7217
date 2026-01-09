@@ -23,7 +23,10 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
+import VerifyEmail from "./pages/VerifyEmail";
 import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -34,16 +37,18 @@ function AnimatedRoutes() {
     <div key={location.pathname} className="animate-page-enter">
       <Routes location={location}>
         <Route path="/" element={<Index />} />
-        <Route path="/guided" element={<GuidedAudit />} />
+        <Route path="/guided" element={<ProtectedRoute><GuidedAudit /></ProtectedRoute>} />
         <Route path="/awareness" element={<Awareness />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/cli" element={<CLICommands />} />
         <Route path="/glossary" element={<Glossary />} />
-        <Route path="/import" element={<ImportControls />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/import" element={<ProtectedRoute><ImportControls /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
