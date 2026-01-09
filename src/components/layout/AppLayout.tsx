@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Shield, BookOpen, Compass, HelpCircle, Terminal, BookText } from 'lucide-react';
+import { Shield, BookOpen, Compass, HelpCircle, Terminal, BookText, Upload } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
@@ -34,6 +34,7 @@ export function AppLayout({ children }: AppLayoutProps) {
     { name: t.nav.faq, href: '/faq', icon: HelpCircle },
     { name: t.nav.cliCommands, href: '/cli', icon: Terminal },
     { name: t.nav.glossary, href: '/glossary', icon: BookText },
+    { name: 'Import', href: '/import', icon: Upload },
   ];
 
   return (
