@@ -1,6 +1,8 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState, useEffect } from 'react';
 import { Award, CheckCircle } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useTheme } from 'next-themes';
+import logoLight from '@/assets/logo-light.png';
 import logoDark from '@/assets/logo-dark.png';
 
 interface CertificateViewProps {
@@ -14,6 +16,19 @@ interface CertificateViewProps {
 export const CertificateView = forwardRef<HTMLDivElement, CertificateViewProps>(
   ({ userName, courseName, certificateNumber, issuedAt, quizScore }, ref) => {
     const { t } = useLanguage();
+    const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+      setMounted(true);
+    }, []);
+
+    const currentLogo = mounted
+      ? resolvedTheme === 'dark'
+        ? logoDark
+        : logoLight
+      : logoLight;
+
     const formattedDate = new Date(issuedAt).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -35,7 +50,7 @@ export const CertificateView = forwardRef<HTMLDivElement, CertificateViewProps>(
         <div className="relative z-10 flex h-full flex-col items-center justify-between py-4 text-center">
           {/* Header */}
           <div className="flex items-center gap-3">
-            <img src={logoDark} alt="Logo" className="h-10 dark:invert" />
+            <img src={currentLogo} alt="Logo" className="h-10" />
             <span className="text-xl font-bold">Cloud Security Hub</span>
           </div>
 
