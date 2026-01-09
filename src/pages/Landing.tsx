@@ -11,15 +11,19 @@ import {
   ArrowRight,
   CheckCircle,
   Cloud,
-  Lock
+  Lock,
+  Award,
+  PlayCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { AppLayout } from '@/components/layout/AppLayout';
+import { useFirebaseAuth } from '@/contexts/FirebaseAuthContext';
 
 export default function Landing() {
   const { t } = useLanguage();
+  const { user } = useFirebaseAuth();
 
   const features = [
     {
@@ -134,7 +138,78 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Who It's For Section */}
+        {/* Training & Certification Banner - Show only to non-logged-in users */}
+        {!user && (
+          <section className="py-12 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-50" />
+            <div className="container relative">
+              <Card className="border-primary/30 bg-gradient-to-br from-card via-card to-primary/5 shadow-xl overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-primary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                <CardContent className="relative p-8 md:p-12">
+                  <div className="flex flex-col lg:flex-row items-center gap-8">
+                    <div className="flex-1 text-center lg:text-left">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
+                        <Award className="h-4 w-4" />
+                        <span>Training & Certification</span>
+                      </div>
+                      <h3 className="text-2xl md:text-3xl font-bold mb-3">
+                        Get Certified in Cloud Security
+                      </h3>
+                      <p className="text-muted-foreground mb-6 max-w-xl">
+                        Access 8+ expert-led courses covering AWS, Azure, GCP, Kubernetes security, and more. 
+                        Complete interactive quizzes and earn digital certificates to showcase your skills.
+                      </p>
+                      <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 mb-6">
+                        <div className="flex items-center gap-2 text-sm">
+                          <PlayCircle className="h-5 w-5 text-primary" />
+                          <span>8+ Courses</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm">
+                          <CheckCircle className="h-5 w-5 text-primary" />
+                          <span>Interactive Quizzes</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm">
+                          <Award className="h-5 w-5 text-primary" />
+                          <span>Digital Certificates</span>
+                        </div>
+                      </div>
+                      <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+                        <Button asChild size="lg" className="min-w-[180px]">
+                          <Link to="/signup">
+                            Start Learning Free
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </Link>
+                        </Button>
+                        <Button asChild variant="outline" size="lg">
+                          <Link to="/login">
+                            Login to Access
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="hidden md:flex flex-shrink-0">
+                      <div className="relative">
+                        <div className="w-48 h-48 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/20">
+                          <GraduationCap className="h-24 w-24 text-primary/80" />
+                        </div>
+                        <div className="absolute -top-3 -right-3 w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center border border-primary/30">
+                          <Award className="h-6 w-6 text-primary" />
+                        </div>
+                        <div className="absolute -bottom-3 -left-3 w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30">
+                          <CheckCircle className="h-5 w-5 text-primary" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+        )}
+
+
         <section className="py-20">
           <div className="container">
             <div className="text-center mb-12">
