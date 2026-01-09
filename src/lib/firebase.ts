@@ -12,12 +12,12 @@ interface FirebaseConfig {
 }
 
 const firebaseConfig: FirebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || '',
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || '',
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || '',
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || '',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
+  apiKey: "AIzaSyAJs7izoAZ9Z0yAR8HV9nu69b8XJ_tSRzU",
+  authDomain: "cloud-audit-6f9ce.firebaseapp.com",
+  projectId: "cloud-audit-6f9ce",
+  storageBucket: "cloud-audit-6f9ce.firebasestorage.app",
+  messagingSenderId: "469482454320",
+  appId: "1:469482454320:web:b41c1dca8ebd9905589cf5",
 };
 
 export const app: FirebaseApp = initializeApp(firebaseConfig);
