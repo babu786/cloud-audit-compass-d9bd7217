@@ -56,8 +56,8 @@ export function CollapsibleCategory({ category, controls, defaultOpen = false }:
       
       {isOpen && (
         <div className="p-4 space-y-4 animate-in slide-in-from-top-2 duration-200">
-          {controls.map((control) => (
-            <AuditControlCard key={control.id} control={control} />
+          {controls.map((control, index) => (
+            <AuditControlCard key={`${control.id}-${index}`} control={control} />
           ))}
         </div>
       )}
